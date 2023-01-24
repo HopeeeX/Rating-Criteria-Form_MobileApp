@@ -12,16 +12,11 @@ class _PH_pageState extends State<PH_page> {
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
-            body: Stack(
+            body: Column(
           children: [
             Container(
               child: buildCont4(),
             ),
-            Container(
-              padding: EdgeInsets.only(top: 240),
-              alignment: Alignment.topCenter,
-              child: buildCard3(),
-            )
           ],
         )),
       );
@@ -44,7 +39,7 @@ Widget buildCont4() => Container(
       decoration: BoxDecoration(
           color: Color.fromRGBO(70, 48, 48, 1.0),
           borderRadius: BorderRadius.circular(1),
-          boxShadow: [BoxShadow(blurRadius: 9.0)]),
+          boxShadow: [BoxShadow(blurRadius: 1.0)]),
       child: Stack(
         children: [
           Container(
@@ -68,7 +63,7 @@ Widget buildCont4() => Container(
       ),
     );
 
-Widget buildCard1() => Container(
+Widget buildCard1(String text, String value) => Container(
     height: 215,
     width: 337,
     child: Card(
@@ -81,7 +76,7 @@ Widget buildCard1() => Container(
           Container(
             padding: EdgeInsets.only(left: 15, right: 15),
             child: Text(
-              'Wear clean uniform, Apron, Face Mask/Spit Guard, gloves, hairnet, visor, cap, lab gown and boots or any PPE required by the retail outlet',
+              text,
               textAlign: TextAlign.center,
               style: GoogleFonts.hahmlet(
                 fontSize: 17,
@@ -96,7 +91,7 @@ Widget buildCard1() => Container(
                     borderRadius: BorderRadius.circular(15)),
                 elevation: 5),
             child: Text(
-              '10',
+              value,
               style: TextStyle(color: Color(0xFF988686)),
             ),
             onPressed: () {},

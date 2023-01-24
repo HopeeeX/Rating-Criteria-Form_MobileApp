@@ -16,9 +16,11 @@ class _FirstPageState extends State<FirstPage> {
         child: Column(children: [
           Padding(padding: EdgeInsets.only(top: 200)),
           Container(child: buildLogo()),
+          Padding(padding: EdgeInsets.only(top: 10)),
           Container(
             child: buildAppName(),
           ),
+          Padding(padding: EdgeInsets.only(top: 22)),
           Container(
             child: buildClickBtn(),
           )
@@ -27,18 +29,17 @@ class _FirstPageState extends State<FirstPage> {
 }
 
 Widget buildLogo() => Container(
-      height: 55,
+      height: 50,
       width: 170,
       child: Image.asset("assets/images/logo.png"),
     );
 
 Widget buildAppName() => Container(
-      height: 200,
       width: 300,
       child: Text(
         'OUTLET VISIT CHECKLIST',
         style:
-            TextStyle(fontFamily: 'Coolvetica', fontSize: 80, letterSpacing: 3),
+            TextStyle(fontFamily: 'Coolvetica', fontSize: 40, letterSpacing: 3),
         maxLines: 2,
         textAlign: TextAlign.center,
       ),

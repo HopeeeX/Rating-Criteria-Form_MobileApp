@@ -19,7 +19,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0-336.0.dev <3.0.0'
+  sdk: '>=2.18.2 <3.0.0'
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -81,10 +81,10 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   # fonts:
-fonts:
-  - family: Coolvetica
-    fonts:
-      - asset: assets/custom_fonts/Coolvetica-condensed-rg.otf
+  fonts:
+    - family: Coolvetica
+      fonts:
+        - asset: assets/custom_fonts/Coolvetica-condensed-rg.otf
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
