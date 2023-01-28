@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:project_1/blocs/form/form_bloc.dart';
 import 'package:project_1/screens/CSSDA_page.dart';
 import 'package:project_1/screens/CS_page.dart';
 import 'package:project_1/screens/DOMP_page.dart';
@@ -10,6 +12,7 @@ import 'package:project_1/screens/TE_page.dart';
 import 'package:project_1/screens/fillout_page.dart';
 import 'package:project_1/screens/PH_page.dart';
 import 'package:project_1/screens/firstpage.dart';
+import 'package:project_1/screens/signin_page.dart';
 import 'package:project_1/screens/visitor_page.dart';
 
 void main() {
@@ -21,6 +24,9 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(debugShowCheckedModeBanner: false, home: PH_page());
+    return BlocProvider(
+      create: (context) => ResultFormBloc(),
+      child: MaterialApp(debugShowCheckedModeBanner: false, home: FirstPage()),
+    );
   }
 }
