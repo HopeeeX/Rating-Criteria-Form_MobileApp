@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class visitor_page extends StatefulWidget {
@@ -17,7 +18,7 @@ class _visitor_pageState extends State<visitor_page> {
           Container(
             padding: EdgeInsets.only(top: 15, left: 5),
             alignment: AlignmentDirectional.topStart,
-            child: buildSignOut(),
+            child: buildSignOut(context),
           ),
           Container(
             padding: EdgeInsets.only(top: 125),
@@ -31,16 +32,16 @@ class _visitor_pageState extends State<visitor_page> {
           Container(
               padding: EdgeInsets.only(bottom: 70),
               alignment: AlignmentDirectional.bottomCenter,
-              child: buildStartBtn())
+              child: buildStartBtn(context))
         ],
       )));
 }
 
-Widget buildSignOut() => Container(
+Widget buildSignOut(BuildContext context) => Container(
     width: 85,
     height: 30,
     child: TextButton(
-      onPressed: () {},
+      onPressed: () => context.go("/"),
       child: Text(
         'Sign Out',
         style: TextStyle(color: Colors.grey),
@@ -58,7 +59,7 @@ Widget buildCont1() => Column(children: [
       Container(
         width: double.infinity,
         height: 270,
-        color: Color.fromRGBO(70, 48, 48, 1.0),
+        color: Color.fromRGBO(121, 112, 112, 1.0),
         padding: EdgeInsets.only(top: 40, left: 25),
         child: Text(
           'Rate and give remarks to our Butcher!',
@@ -71,16 +72,17 @@ Widget buildCont1() => Column(children: [
       ),
     ]);
 
-Widget buildStartBtn() => Container(
+Widget buildStartBtn(BuildContext context) => Container(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xFFAA2121),
             minimumSize: Size(320, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () {},
+        onPressed: () => context.go("/fillout"),
         child: Text(
           'Start',
+          style: GoogleFonts.hahmlet(fontSize: 18),
         ),
       ),
     );

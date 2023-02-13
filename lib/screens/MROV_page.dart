@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MROV_page extends StatefulWidget {
@@ -9,53 +10,111 @@ class MROV_page extends StatefulWidget {
 }
 
 class _MROV_pageState extends State<MROV_page> {
+  final List _cards1 = [
+    buildCard('Delivery Receipts (DR) are \n properly documented', '10'),
+    buildCard('DRs are documented but \n incomplete', '8'),
+    buildCard('DRs are incomplete and \n unreadable', '6'),
+    buildCard('DRs are scattered elsewhere', '4'),
+    buildCard('DRs are not kept for \n documentation', '2')
+  ];
+  final List _cards2 = [
+    buildCard(
+        'Ingredients and packaging supplies \n are enough for the daily operation',
+        '10'),
+    buildCard(
+        'Ingredients and packaging supplies \n are not enough for the daily \n operation',
+        '8'),
+    buildCard('Some ingredients are not used and nearly expire', '6'),
+    buildCard('Plastic packagings are used \n improperly (personal use)', '4'),
+    buildCard('Ingredients and packaging \n supplies are unavailable', '2')
+  ];
+  final List _cards3 = [
+    buildCard('Meat stocks and buffer items are \n in the right volume', '10'),
+    buildCard('Items for buffer are exceeded the preferred count at 20%', '8'),
+    buildCard('Items for buffer are exceeded the preferred count at 50%', '6'),
+    buildCard('Items for buffer are exceeded the preferred count at 80%', '4'),
+    buildCard('Overcrowded meat stocks', '2')
+  ];
+  final List _cards4 = [
+    buildCard('Fast moving products are always available', '10'),
+    buildCard(
+        'Fast moving products are available \n but not enough until next delivery',
+        '8'),
+    buildCard('Fast moving products are nearly \n out of stock', '6'),
+    buildCard('Fast moving products only available \n for the day', '4'),
+    buildCard('No available fast moving products', '2')
+  ];
+
   @override
   Widget build(BuildContext context) => SafeArea(
-          child: Scaffold(
-        body: Column(children: [
-          Container(
-            child: buildCont10(),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 35),
-            alignment: Alignment.topCenter,
-            child: buildCard185(),
-          )
-        ]),
-      ));
+      child: Scaffold(
+          backgroundColor: Color.fromRGBO(121, 112, 112, 1.0),
+          body: Column(
+            children: [
+              Container(
+                child: buildCont(context),
+              ),
+              Expanded(
+                child: Container(
+                  width: 350,
+                  height: double.infinity,
+                  child: ListView.builder(
+                    itemCount: _cards1.length,
+                    itemBuilder: (context, index) {
+                      return _cards1[index];
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                height: 115,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text('Select Rate to Proceed',
+                          style: GoogleFonts.hahmlet(
+                              color: Colors.white, fontSize: 15)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 12),
+                      child: buildNxtBtn(context),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )));
 }
 
-Widget buildBckbtn8() => Container(
-        child: InkWell(
-      onTap: () {},
-      child: Ink.image(
-        image: AssetImage("assets/images/back_button.png"),
-        height: 50,
-        width: 50,
-      ),
-    ));
-
-Widget buildCont10() => Container(
+Widget buildCont(BuildContext context) => Container(
       width: double.infinity,
-      height: 200,
+      height: 180,
+      padding: EdgeInsets.only(top: 20, left: 20),
       decoration: BoxDecoration(
-          color: Color.fromRGBO(70, 48, 48, 1.0),
-          borderRadius: BorderRadius.circular(1),
-          boxShadow: [BoxShadow(blurRadius: 1.0)]),
+          color: Color.fromRGBO(121, 112, 112, 1.0),
+          borderRadius: BorderRadius.circular(1)),
       child: Stack(
         children: [
           Container(
-              padding: EdgeInsets.only(top: 60, left: 25),
+              child: InkWell(
+            onTap: () => context.go("/CS"),
+            child: Container(
+              child: Image.asset("assets/images/back_button.png"),
+            ),
+          )),
+          Container(
+              padding: EdgeInsets.only(top: 30, left: 5),
               child: Text(
                 'Monitoring Retail Outlet Variance',
                 style: GoogleFonts.hahmlet(
-                  fontSize: 25,
+                  fontSize: 27,
                   fontWeight: FontWeight.w500,
                   color: Colors.white,
                 ),
               )),
           Container(
-            padding: EdgeInsets.only(top: 135, left: 25),
+            padding: EdgeInsets.only(top: 105, left: 5),
             child: Text('Choose your desired parameters',
                 style: GoogleFonts.hahmlet(
                     fontSize: 20,
@@ -66,722 +125,70 @@ Widget buildCont10() => Container(
       ),
     );
 
-Widget buildCard166() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
+Widget buildCard(String text, String value) => Container(
+        child: Card(
+      color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
       child: Column(
         children: [
           Padding(padding: EdgeInsets.only(top: 18)),
           Container(
+            padding: EdgeInsets.only(left: 15, right: 15),
             child: Text(
-              'Delivery Receipts (DR) are \n properly documented',
+              text,
               textAlign: TextAlign.center,
               style: GoogleFonts.hahmlet(
                 fontSize: 17,
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.only(top: 15)),
+          Padding(
+              padding: EdgeInsets.only(
+            top: 15,
+          )),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: Color(0xFFFAF6F6),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
+                    borderRadius: BorderRadius.circular(10)),
+                elevation: 4),
             child: Text(
-              '10',
+              value,
               style: TextStyle(color: Color(0xFF988686)),
             ),
             onPressed: () {},
-          )
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 15))
         ],
       ),
     ));
 
-Widget buildCard167() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'DRs are documented but \n incomplete',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
+Widget buildRemarks() => Container(
+    padding: EdgeInsets.only(top: 20),
+    alignment: Alignment.topCenter,
+    child: SizedBox(
+      width: 337,
+      height: 50.5,
+      child: TextField(
+          decoration: InputDecoration(
+              fillColor: Color.fromRGBO(236, 228, 228, 1.0),
+              contentPadding: EdgeInsets.only(left: 20),
+              hintText: "Enter your remarks here",
+              hintStyle: GoogleFonts.hahmlet(fontSize: 14),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ))),
     ));
 
-Widget buildCard168() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'DRs are incomplete and \n unreadable',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
+Widget buildNxtBtn(BuildContext context) => Container(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            primary: Color(0xFFAA2121),
+            minimumSize: Size(355, 50),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        onPressed: () => context.go("/"),
+        child: Text('Finish', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
-    ));
-
-Widget buildCard169() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'DRs are scattered elsewhere',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard170() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'DRs are not kept for \n documentation',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard171() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Ingredients and packaging supplies \n are enough for the daily operation',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard172() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Ingredients and packaging supplies \n are not enough for the daily \n operation',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard173() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Some ingredients are not used and nearly expire',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard174() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Plastic packagings are used \n improperly (personal use)',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard175() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Ingredients and packaging \n supplies are unavailable',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard176() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Meat stocks and buffer items are \n in the right volume',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard177() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Items for buffer are exceeded the preferred count at 20%',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard178() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Items for buffer are exceeded the preferred count at 50% ',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard179() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Items for buffer are exceeded the preferred count at 80%',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard180() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Overcrowded meat stocks',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard181() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Fast moving products are always available',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard182() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Fast moving products are available \n but not enough until next delivery',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard183() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Fast moving products are nearly \n out of stock',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard184() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 10,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Fast moving products only available \n for the day',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 5),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard185() => Container(
-    height: 118,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'No available fast moving products',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
+    );

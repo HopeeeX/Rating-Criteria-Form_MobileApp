@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class CS_page extends StatefulWidget {
@@ -9,53 +10,136 @@ class CS_page extends StatefulWidget {
 }
 
 class _CS_pageState extends State<CS_page> {
+  final List _cards1 = [
+    buildCard('There are enough personnel to \n assist customers', '10'),
+    buildCard('Not enough staff to take orders of customers', '8'),
+    buildCard('There are few personnel focus to \n assist customers', '6'),
+    buildCard('There are enough personnel but ignores customers', '4'),
+    buildCard('No available staff to assist \n customers', '2'),
+  ];
+  final List _cards2 = [
+    buildCard('Greets customers with a smile', '10'),
+    buildCard("Smiles but don't greet", '8'),
+    buildCard("Greets but don't smile", '6'),
+    buildCard('Smile is sly/not genuine', '4'),
+    buildCard("Don't greet and smile", '2'),
+  ];
+  final List _cards3 = [
+    buildCard(
+        'Taking orders and suggesting \n products are prompt, pleasant and clear',
+        '10'),
+    buildCard(
+        'Takes order properly but not \n suggested additional products', '8'),
+    buildCard('Seldom suggest products to \n customers', '6'),
+    buildCard("Does not repeat customer's \n order to verify", '4'),
+    buildCard('Never suggests promo items / \n other products', '2'),
+  ];
+  final List _cards4 = [
+    buildCard(
+        'Preparation and assembling of \n orders are organize, accurate \n and fast',
+        '10'),
+    buildCard('Products are not assembled \n properly', '8'),
+    buildCard('Products are accurately organized \n but served slow', '6'),
+    buildCard('Products are inaccurately \n organized even served fast', '4'),
+    buildCard(
+        'Products are not assembled \n properly, inaccurate and served \n slow',
+        '2'),
+  ];
+  final List _cards5 = [
+    buildCard(
+        'Serve the meat order completely, courteously and helpfully with \n proper posture',
+        '10'),
+    buildCard(
+        'Staff is courteous and helpful \n with proper posture but orders \n were not completely served',
+        '8'),
+    buildCard(
+        'Staff is courteous and helpful but \n with improper posture', '6'),
+    buildCard(
+        'Staff is courteous and helpful but \n with improper posture and orders \n are not completely served',
+        '4'),
+    buildCard('Staff shows disrespect and \n not helpful', '2'),
+  ];
+  final List _cards6 = [
+    buildCard(
+        'Thank/ask for repeat order \n naturally, sincerely and with \n eye contact',
+        '10'),
+    buildCard('Thank the customer but without \n eye contact', '8'),
+    buildCard('Serves without smiling', '6'),
+    buildCard('Thank the customer but not \n completely focused', '4'),
+    buildCard(
+        'Do not thank customer and \n focuses on unimportant activity', '2')
+  ];
+
   @override
   Widget build(BuildContext context) => SafeArea(
-          child: Scaffold(
-        body: Column(children: [
-          Container(
-            child: buildCont9(),
-          ),
-          Container(
-            padding: EdgeInsets.only(top: 35),
-            alignment: Alignment.topCenter,
-            child: buildCard165(),
-          )
-        ]),
-      ));
+      child: Scaffold(
+          backgroundColor: Color.fromRGBO(121, 112, 112, 1.0),
+          body: Column(
+            children: [
+              Container(
+                child: buildCont(context),
+              ),
+              Expanded(
+                child: Container(
+                  width: 350,
+                  height: double.infinity,
+                  child: ListView.builder(
+                    itemCount: _cards1.length,
+                    itemBuilder: (context, index) {
+                      return _cards1[index];
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                height: 115,
+                child: Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(top: 15),
+                      child: Text('Select Rate to Proceed',
+                          style: GoogleFonts.hahmlet(
+                              color: Colors.white, fontSize: 15)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 12),
+                      child: buildNxtBtn(context),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )));
 }
 
-Widget buildBckbtn7() => Container(
-        child: InkWell(
-      onTap: () {},
-      child: Ink.image(
-        image: AssetImage("assets/images/back_button.png"),
-        height: 50,
-        width: 50,
-      ),
-    ));
-
-Widget buildCont9() => Container(
+Widget buildCont(BuildContext context) => Container(
       width: double.infinity,
-      height: 200,
-      padding: EdgeInsets.only(top: 60, left: 25),
+      height: 180,
+      padding: EdgeInsets.only(top: 20, left: 20),
       decoration: BoxDecoration(
-          color: Color.fromRGBO(70, 48, 48, 1.0),
-          borderRadius: BorderRadius.circular(1),
-          boxShadow: [BoxShadow(blurRadius: 1.0)]),
+          color: Color.fromRGBO(121, 112, 112, 1.0),
+          borderRadius: BorderRadius.circular(1)),
       child: Stack(
         children: [
           Container(
-              child: Text(
-            'Customer Service',
-            style: GoogleFonts.hahmlet(
-              fontSize: 25,
-              fontWeight: FontWeight.w500,
-              color: Colors.white,
+              child: InkWell(
+            onTap: () => context.go("/CSSDA"),
+            child: Container(
+              child: Image.asset("assets/images/back_button.png"),
             ),
           )),
           Container(
-            padding: EdgeInsets.only(top: 45),
+              padding: EdgeInsets.only(top: 50, left: 5),
+              child: Text(
+                'Customer Service',
+                style: GoogleFonts.hahmlet(
+                  fontSize: 27,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
+                ),
+              )),
+          Container(
+            padding: EdgeInsets.only(top: 90, left: 5),
             child: Text('Choose your desired parameters',
                 style: GoogleFonts.hahmlet(
                     fontSize: 20,
@@ -66,1082 +150,70 @@ Widget buildCont9() => Container(
       ),
     );
 
-Widget buildCard136() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
+Widget buildCard(String text, String value) => Container(
+        child: Card(
+      color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
       child: Column(
         children: [
           Padding(padding: EdgeInsets.only(top: 18)),
           Container(
+            padding: EdgeInsets.only(left: 15, right: 15),
             child: Text(
-              'There are enough personnel to \n assist customers',
+              text,
               textAlign: TextAlign.center,
               style: GoogleFonts.hahmlet(
                 fontSize: 17,
               ),
             ),
           ),
-          Padding(padding: EdgeInsets.only(top: 15)),
+          Padding(
+              padding: EdgeInsets.only(
+            top: 15,
+          )),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
                 primary: Color(0xFFFAF6F6),
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
+                    borderRadius: BorderRadius.circular(10)),
+                elevation: 4),
             child: Text(
-              '10',
+              value,
               style: TextStyle(color: Color(0xFF988686)),
             ),
             onPressed: () {},
-          )
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 15))
         ],
       ),
     ));
 
-Widget buildCard137() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Not enough staff to take orders of customers',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
+Widget buildRemarks() => Container(
+    padding: EdgeInsets.only(top: 20),
+    alignment: Alignment.topCenter,
+    child: SizedBox(
+      width: 337,
+      height: 50.5,
+      child: TextField(
+          decoration: InputDecoration(
+              fillColor: Color.fromRGBO(236, 228, 228, 1.0),
+              contentPadding: EdgeInsets.only(left: 20),
+              hintText: "Enter your remarks here",
+              hintStyle: GoogleFonts.hahmlet(fontSize: 14),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(15),
+              ))),
     ));
 
-Widget buildCard138() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'There are few personnel focus to \n assist customers',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
+Widget buildNxtBtn(BuildContext context) => Container(
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+            primary: Color(0xFFAA2121),
+            minimumSize: Size(355, 50),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10))),
+        onPressed: () => context.go("/MROV"),
+        child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
-    ));
-
-Widget buildCard139() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'There are enough personnel but ignores customers',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard140() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'No available staff to assist \n customers',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard141() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Greets customers with a smile',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard142() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              "Smiles but don't greet",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard143() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              "Greets but don't smile",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard144() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Smile is sly/not genuine',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard145() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              "Don't greet and smile",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard146() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Taking orders and suggesting \n products are prompt, pleasant and clear',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard147() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Takes order properly but not \n suggested additional products',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard148() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Seldom suggest products to \n customers',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard149() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              "Does not repeat customer's \n order to verify",
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard150() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Never suggests promo items / \n other products',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard151() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Preparation and assembling of \n orders are organize, accurate \n and fast',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard152() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Products are not assembled \n properly',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard153() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Products are accurately organized \n but served slow',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard154() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Products are inaccurately \n organized even served fast',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard155() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Products are not assembled \n properly, inaccurate and served \n slow',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard156() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Serve the meat order completely, courteously and helpfully with \n proper posture',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard157() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Staff is courteous and helpful \n with proper posture but orders \n were not completely served',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard158() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Staff is courteous and helpful but \n with improper posture',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard159() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Staff is courteous and helpful but \n with improper posture and orders \n are not completely served',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard160() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Staff shows disrespect and \n not helpful',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard161() => Container(
-    height: 165,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Thank/ask for repeat order \n naturally, sincerely and with \n eye contact',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '10',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard162() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Thank the customer but without \n eye contact',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '8',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard163() => Container(
-    height: 117,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Serves without smiling',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '6',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard164() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Thank the customer but not \n completely focused',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '4',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
-
-Widget buildCard165() => Container(
-    height: 140,
-    width: 337,
-    child: Card(
-      color: Color.fromRGBO(236, 228, 228, 1.0),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            child: Text(
-              'Do not thank customer and \n focuses on unimportant activity',
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(padding: EdgeInsets.only(top: 15)),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                elevation: 2),
-            child: Text(
-              '2',
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          )
-        ],
-      ),
-    ));
+    );

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class fillout_page extends StatefulWidget {
@@ -15,10 +16,7 @@ class _fillout_pageState extends State<fillout_page> {
         body: Stack(
           children: [
             Container(
-              child: buildCont3(),
-            ),
-            Container(
-              child: buildBckbtn(),
+              child: buildCont3(context),
             ),
             Container(
               padding: EdgeInsets.only(top: 240, left: 30),
@@ -46,40 +44,42 @@ class _fillout_pageState extends State<fillout_page> {
             ),
             Container(
               padding: EdgeInsets.only(top: 660, left: 32),
-              child: buildNxtBtn1(),
+              child: buildNxtBtn1(context),
             )
           ],
         ),
       ));
 }
 
-Widget buildBckbtn() => Container(
-        child: InkWell(
-      onTap: () {},
-      child: Ink.image(
-        image: AssetImage("assets/images/back_button.png"),
-        height: 50,
-        width: 50,
-      ),
+Widget buildCont3(BuildContext context) => Container(
+    width: double.infinity,
+    height: 200,
+    padding: EdgeInsets.only(top: 25, left: 20),
+    decoration: BoxDecoration(
+        color: Color.fromRGBO(121, 112, 112, 1.0),
+        borderRadius: BorderRadius.circular(1),
+        boxShadow: [BoxShadow(blurRadius: 1.0)]),
+    child: Stack(
+      children: [
+        Container(
+            child: InkWell(
+          onTap: () => context.go("/visitor"),
+          child: Container(
+            child: Image.asset("assets/images/back_button.png"),
+          ),
+        )),
+        Container(
+            padding: EdgeInsets.only(top: 60, left: 5),
+            child: Text(
+              'Fill out the following information',
+              style: GoogleFonts.hahmlet(
+                fontSize: 27,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            )),
+      ],
     ));
-
-Widget buildCont3() => Container(
-      width: double.infinity,
-      height: 200,
-      padding: EdgeInsets.only(top: 70, left: 30),
-      decoration: BoxDecoration(
-          color: Color.fromRGBO(70, 48, 48, 1.0),
-          borderRadius: BorderRadius.circular(1),
-          boxShadow: [BoxShadow(blurRadius: 9.0)]),
-      child: Text(
-        'Fill out the following information',
-        style: GoogleFonts.hahmlet(
-          fontSize: 27,
-          fontWeight: FontWeight.w500,
-          color: Colors.white,
-        ),
-      ),
-    );
 
 Widget buildOutletName() => Container(
         child: SizedBox(
@@ -170,16 +170,17 @@ Widget buildEndTime() => Container(
               ))),
     ));
 
-Widget buildNxtBtn1() => Container(
+Widget buildNxtBtn1(BuildContext context) => Container(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xFFAA2121),
             minimumSize: Size(355, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () {},
+        onPressed: () => context.go("/PH"),
         child: Text(
           'Next',
+          style: GoogleFonts.hahmlet(fontSize: 18),
         ),
       ),
     );

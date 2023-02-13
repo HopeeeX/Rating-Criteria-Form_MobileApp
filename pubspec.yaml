@@ -38,6 +38,7 @@ dependencies:
   getwidget: ^3.0.1
   flutter_bloc: ^8.1.1
   equatable: ^2.0.5
+  go_router: ^6.0.2
 
 
 dev_dependencies:
