@@ -1,8 +1,9 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PH_page extends StatefulWidget {
   @override
@@ -56,6 +57,8 @@ class _PH_pageState extends State<PH_page> {
     buildCard('Never washes hands and do not \n use tools for serving', '2')
   ];
 
+  PageController _controller = PageController();
+
   @override
   Widget build(BuildContext context) => SafeArea(
         child: Scaffold(
@@ -66,29 +69,72 @@ class _PH_pageState extends State<PH_page> {
                   child: buildCont(context),
                 ),
                 Expanded(
-                  child: Container(
-                    width: 350,
-                    height: double.infinity,
-                    child: ListView.builder(
-                      itemCount: _cards1.length,
-                      itemBuilder: (context, index) {
-                        return _cards1[index];
-                      },
+                    child: Stack(children: [
+                  PageView(controller: _controller, children: [
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 17, left: 30, right: 30, bottom: 7),
+                      height: double.infinity,
+                      child: ListView.builder(
+                          itemCount: _cards1.length,
+                          itemBuilder: (context, index) {
+                            return _cards1[index];
+                          }),
                     ),
-                  ),
-                ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 17, left: 30, right: 30, bottom: 7),
+                      height: double.infinity,
+                      child: ListView.builder(
+                          itemCount: _cards2.length,
+                          itemBuilder: (context, index) {
+                            return _cards2[index];
+                          }),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 17, left: 30, right: 30, bottom: 7),
+                      height: double.infinity,
+                      child: ListView.builder(
+                          itemCount: _cards3.length,
+                          itemBuilder: (context, index) {
+                            return _cards3[index];
+                          }),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(
+                          top: 17, left: 30, right: 30, bottom: 7),
+                      height: double.infinity,
+                      child: ListView.builder(
+                          itemCount: _cards4.length,
+                          itemBuilder: (context, index) {
+                            return _cards4[index];
+                          }),
+                    ),
+                  ]),
+                  Container(
+                      alignment: Alignment.topCenter,
+                      child: SmoothPageIndicator(
+                        controller: _controller,
+                        count: 4,
+                        effect: ExpandingDotsEffect(
+                            spacing: 7.0,
+                            radius: 5.0,
+                            dotHeight: 10,
+                            activeDotColor: Colors.grey),
+                      )),
+                ])),
                 Container(
-                  height: 115,
+                  height: 85,
                   child: Column(
                     children: [
                       Container(
-                        padding: EdgeInsets.only(top: 15),
                         child: Text('Select Rate to Proceed',
                             style: GoogleFonts.hahmlet(
                                 color: Colors.white, fontSize: 15)),
                       ),
                       Container(
-                        padding: EdgeInsets.only(top: 12),
+                        padding: EdgeInsets.only(top: 5, bottom: 10),
                         child: buildNxtBtn(context),
                       )
                     ],
@@ -101,7 +147,7 @@ class _PH_pageState extends State<PH_page> {
 
 Widget buildCont(BuildContext context) => Container(
       width: double.infinity,
-      height: 180,
+      height: 160,
       padding: EdgeInsets.only(top: 20, left: 20),
       decoration: BoxDecoration(
           color: Color.fromRGBO(121, 112, 112, 1.0),
