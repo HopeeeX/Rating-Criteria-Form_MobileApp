@@ -235,7 +235,7 @@ Widget buildNxtBtn(BuildContext context) => Container(
             minimumSize: Size(355, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/"),
+        onPressed: () => context.go("/rating"),
         child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
     );

@@ -13,7 +13,10 @@ import 'package:project_1/screens/SAPOM_page.dart';
 import 'package:project_1/screens/TE_page.dart';
 import 'package:project_1/screens/fillout_page.dart';
 import 'package:project_1/screens/firstpage.dart';
+import 'package:project_1/screens/generate_form.dart';
+import 'package:project_1/screens/rating_finish.dart';
 import 'package:project_1/screens/visitor_page.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,6 +31,14 @@ class MyApp extends StatelessWidget {
       create: (context) => ResultFormBloc(),
       child: MaterialApp.router(
         routerConfig: _router,
+        builder: (context, child) => ResponsiveWrapper.builder(child,
+            maxWidth: 1280,
+            minWidth: 411,
+            defaultScale: true,
+            breakpoints: [
+              ResponsiveBreakpoint.resize(411, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ]),
       ),
     );
   }
@@ -52,5 +63,7 @@ class MyApp extends StatelessWidget {
     GoRoute(path: "/CSSDA", builder: (context, state) => CSSDA_page()),
     GoRoute(path: "/CS", builder: (context, state) => CS_page()),
     GoRoute(path: "/MROV", builder: (context, state) => MROV_page()),
+    GoRoute(path: "/rating", builder: (context, state) => rating_finish()),
+    GoRoute(path: "/generate", builder: (context, state) => generate_form()),
   ]);
 }
