@@ -10,17 +10,7 @@ class rating_finish extends StatefulWidget {
   _rating_finishState createState() => _rating_finishState();
 }
 
-class _rating_finishState extends State<rating_finish>
-    with TickerProviderStateMixin {
-  late final AnimationController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _controller = AnimationController(vsync: this);
-  }
-
+class _rating_finishState extends State<rating_finish> {
   @override
   Widget build(BuildContext context) => SafeArea(
           child: Scaffold(
@@ -30,11 +20,7 @@ class _rating_finishState extends State<rating_finish>
                 padding: EdgeInsets.only(top: 85),
                 alignment: Alignment.topCenter,
                 child: Lottie.asset('animations/check_mark.json',
-                    width: 230,
-                    height: 230,
-                    fit: BoxFit.cover,
-                    controller: _controller,
-                    repeat: false)),
+                    width: 230, height: 230, fit: BoxFit.cover, repeat: false)),
             Container(
               padding: EdgeInsets.only(top: 20),
               child: buildTxt(),

@@ -42,6 +42,12 @@ dependencies:
   smooth_page_indicator: ^1.0.1
   lottie: ^2.2.0
   responsive_framework: ^0.2.0
+  calendar_date_picker2: ^0.3.9
+  intl: ^0.18.0
+  syncfusion_flutter_pdf: ^20.4.50
+  path_provider: ^2.0.12
+  lecle_downloads_path_provider: ^0.0.2+8
+  open_file: ^3.2.1
 
 
 dev_dependencies:
@@ -74,6 +80,7 @@ flutter:
   - assets/custom_fonts/Coolvetica-condensed-rg.otf
   - assets/google_fonts/
   - animations/check_mark.json
+  - assets/template.pdf
 
 
 

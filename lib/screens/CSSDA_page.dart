@@ -204,13 +204,6 @@ Widget buildCont(BuildContext context) => Container(
       child: Stack(
         children: [
           Container(
-              child: InkWell(
-            onTap: () => context.go("/SAPOM"),
-            child: Container(
-              child: Image.asset("assets/images/back_button.png"),
-            ),
-          )),
-          Container(
               padding: EdgeInsets.only(top: 30, left: 5),
               child: Text(
                 'Cleaning Supply Storage\nand Display Area',

@@ -168,13 +168,6 @@ Widget buildCont(BuildContext context) => Container(
       child: Stack(
         children: [
           Container(
-              child: InkWell(
-            onTap: () => context.go("/TE"),
-            child: Container(
-              child: Image.asset("assets/images/back_button.png"),
-            ),
-          )),
-          Container(
               padding: EdgeInsets.only(top: 50, left: 5),
               child: Text(
                 'Display of Meat Product',

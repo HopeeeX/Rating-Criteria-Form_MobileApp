@@ -56,17 +56,19 @@ Widget buildCharacter() => Container(
     );
 
 Widget buildCont1() => Column(children: [
-      Container(
-        width: double.infinity,
-        height: 270,
-        color: Color.fromRGBO(121, 112, 112, 1.0),
-        padding: EdgeInsets.only(top: 40, left: 25),
-        child: Text(
-          'Rate and give remarks to our Butcher!',
-          style: GoogleFonts.hahmlet(
-            fontSize: 25,
-            fontWeight: FontWeight.w500,
-            color: Colors.white,
+      Expanded(
+        child: Container(
+          width: double.infinity,
+          height: 270,
+          color: Color.fromRGBO(121, 112, 112, 1.0),
+          padding: EdgeInsets.only(top: 40, left: 25),
+          child: Text(
+            'Rate and give remarks to our Butcher!',
+            style: GoogleFonts.hahmlet(
+              fontSize: 25,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
           ),
         ),
       ),

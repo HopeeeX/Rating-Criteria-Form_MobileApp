@@ -13,10 +13,10 @@ packages:
     dependency: transitive
     description:
       name: async
-      sha256: "271b8899fc99f9df4f4ed419fa14e2fff392c7b2c162fbb87b222e2e963ddc73"
+      sha256: bfe67ef28df125b7dddcea62755991f807aa39a2492a23e1550161692950bbe0
       url: "https://pub.dev"
     source: hosted
-    version: "2.9.0"
+    version: "2.10.0"
   bloc:
     dependency: transitive
     description:
@@ -29,10 +29,18 @@ packages:
     dependency: transitive
     description:
       name: boolean_selector
-      sha256: "5bbf32bc9e518d41ec49718e2931cd4527292c9b0c6d2dffcf7fe6b9a8a8cf72"
+      sha256: "6cfb5af12253eaf2b368f07bacc5a80d1301a071c73360d746b7f2e32d762c66"
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.0"
+    version: "2.1.1"
+  calendar_date_picker2:
+    dependency: "direct main"
+    description:
+      name: calendar_date_picker2
+      sha256: "97b87000adb654e36fa906be0ecd32d3b84157ba1246e752a8ea66c5af0b9cb0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.3.9"
   characters:
     dependency: transitive
     description:
@@ -101,10 +109,10 @@ packages:
     dependency: transitive
     description:
       name: ffi
-      sha256: a38574032c5f1dd06c4aee541789906c12ccaab8ba01446e800d9c5b79c4a978
+      sha256: "13a6ccf6a459a125b3fcdb6ec73bd5ff90822e071207c663bfd1f70062d51d18"
       url: "https://pub.dev"
     source: hosted
-    version: "2.0.1"
+    version: "1.2.1"
   file:
     dependency: transitive
     description:
@@ -184,6 +192,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  intl:
+    dependency: "direct main"
+    description:
+      name: intl
+      sha256: a3715e3bc90294e971cb7dc063fbf3cd9ee0ebf8604ffeafabd9e6f16abbdbe6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.18.0"
   js:
     dependency: transitive
     description:
@@ -192,6 +208,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.5"
+  lecle_downloads_path_provider:
+    dependency: "direct main"
+    description:
+      name: lecle_downloads_path_provider
+      sha256: "111f6d6d21e18acddda515eba8fd445658aa14defcbd59513d6d1b02b9ed47a0"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.2+8"
   lints:
     dependency: transitive
     description:
@@ -220,10 +244,10 @@ packages:
     dependency: transitive
     description:
       name: matcher
-      sha256: "80c2989398773fa06e2457e9ff08580f24e9858b28462a722241cb53e5613478"
+      sha256: "16db949ceee371e9b99d22f88fa3a73c4e59fd0afed0bd25fc336eb76c198b72"
       url: "https://pub.dev"
     source: hosted
-    version: "0.12.12"
+    version: "0.12.13"
   material_color_utilities:
     dependency: transitive
     description:
@@ -248,6 +272,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.0"
+  open_file:
+    dependency: "direct main"
+    description:
+      name: open_file
+      sha256: "5cd0288033d613ee7908aa974b7ff00805ae55d253f64d311603cf2e30613ca8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.1"
   path:
     dependency: transitive
     description:
@@ -257,7 +289,7 @@ packages:
     source: hosted
     version: "1.8.2"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
       sha256: dcea5feb97d8abf90cab9e9030b497fb7c3cbf26b7a1fe9e3ef7dcb0a1ddec95
@@ -300,10 +332,18 @@ packages:
     dependency: transitive
     description:
       name: path_provider_windows
-      sha256: bcabbe399d4042b8ee687e17548d5d3f527255253b4a639f5f8d2094a9c2b45c
+      sha256: a34ecd7fb548f8e57321fd8e50d865d266941b54e6c3b7758cf8f37c24116905
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.3"
+    version: "2.0.7"
+  petitparser:
+    dependency: transitive
+    description:
+      name: petitparser
+      sha256: "49392a45ced973e8d94a85fdb21293fbb40ba805fc49f2965101ae748a3683b4"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.1.0"
   platform:
     dependency: transitive
     description:
@@ -393,10 +433,26 @@ packages:
     dependency: transitive
     description:
       name: string_scanner
-      sha256: "862015c5db1f3f3c4ea3b94dc2490363a84262994b88902315ed74be1155612f"
+      sha256: "556692adab6cfa87322a115640c11f13cb77b3f076ddcc5d6ae3c20242bedcde"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.1"
+    version: "1.2.0"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "33141f9073c607bd113898d241aa6a03ccc1856a314bd061015180c35d47012f"
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.50"
+  syncfusion_flutter_pdf:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_pdf
+      sha256: eae2d533efa4412155cdfbb7cc467d4b3fa66afefdaa90bcef69e29fcd5e6de0
+      url: "https://pub.dev"
+    source: hosted
+    version: "20.4.50"
   term_glyph:
     dependency: transitive
     description:
@@ -409,10 +465,10 @@ packages:
     dependency: transitive
     description:
       name: test_api
-      sha256: ceeddf59d613e862e77f4b506cfc2945ac9637ce0b4c00f4f4c1ac639f3e9731
+      sha256: ad540f65f92caa91bf21dfc8ffb8c589d6e4dc0c2267818b4cc2792857706206
       url: "https://pub.dev"
     source: hosted
-    version: "0.4.14"
+    version: "0.4.16"
   typed_data:
     dependency: transitive
     description:
@@ -433,10 +489,10 @@ packages:
     dependency: transitive
     description:
       name: win32
-      sha256: c9ebe7ee4ab0c2194e65d3a07d8c54c5d00bb001b76081c4a04cdb8448b59e46
+      sha256: c0e3a4f7be7dae51d8f152230b86627e3397c1ba8c3fa58e63d44a9f3edc9cef
       url: "https://pub.dev"
     source: hosted
-    version: "3.1.3"
+    version: "2.6.1"
   xdg_directories:
     dependency: transitive
     description:
@@ -445,6 +501,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0+3"
+  xml:
+    dependency: transitive
+    description:
+      name: xml
+      sha256: "979ee37d622dec6365e2efa4d906c37470995871fe9ae080d967e192d88286b5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.2.2"
 sdks:
-  dart: ">=2.18.2 <4.0.0"
+  dart: ">=2.18.2 <3.0.0"
   flutter: ">=3.3.0"

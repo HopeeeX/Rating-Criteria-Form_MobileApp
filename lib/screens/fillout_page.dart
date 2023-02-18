@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
+import 'package:intl/intl.dart';
 
 class fillout_page extends StatefulWidget {
   @override
@@ -10,6 +12,8 @@ class fillout_page extends StatefulWidget {
 }
 
 class _fillout_pageState extends State<fillout_page> {
+  var date_filled;
+  var date = TextEditingController();
   @override
   Widget build(BuildContext context) => SafeArea(
           child: Scaffold(
@@ -19,31 +23,31 @@ class _fillout_pageState extends State<fillout_page> {
               child: buildCont3(context),
             ),
             Container(
-              padding: EdgeInsets.only(top: 240, left: 30),
+              padding: EdgeInsets.only(top: 240, left: 30, right: 30),
               child: buildOutletName(),
             ),
             Container(
-              padding: EdgeInsets.only(top: 310, left: 30),
+              padding: EdgeInsets.only(top: 310, left: 30, right: 30),
               child: buildButcherName(),
             ),
             Container(
-              padding: EdgeInsets.only(top: 380, left: 30),
+              padding: EdgeInsets.only(top: 380, left: 30, right: 30),
               child: buildAMName(),
             ),
             Container(
-              padding: EdgeInsets.only(top: 450, left: 30),
-              child: buildDate(),
+              padding: EdgeInsets.only(top: 450, left: 30, right: 30),
+              child: buildDate(this, context),
             ),
             Container(
-              padding: EdgeInsets.only(top: 520, left: 30),
+              padding: EdgeInsets.only(top: 520, left: 30, right: 30),
               child: buildStartTime(),
             ),
             Container(
-              padding: EdgeInsets.only(top: 590, left: 30),
+              padding: EdgeInsets.only(top: 590, left: 30, right: 30),
               child: buildEndTime(),
             ),
             Container(
-              padding: EdgeInsets.only(top: 660, left: 32),
+              padding: EdgeInsets.only(top: 660, left: 32, right: 32),
               child: buildNxtBtn1(context),
             )
           ],
@@ -83,7 +87,7 @@ Widget buildCont3(BuildContext context) => Container(
 
 Widget buildOutletName() => Container(
         child: SizedBox(
-      width: 350,
+      width: double.infinity,
       height: 50.5,
       child: TextField(
           decoration: InputDecoration(
@@ -97,7 +101,7 @@ Widget buildOutletName() => Container(
 
 Widget buildButcherName() => Container(
         child: SizedBox(
-      width: 350,
+      width: double.infinity,
       height: 50.5,
       child: TextField(
           decoration: InputDecoration(
@@ -111,7 +115,7 @@ Widget buildButcherName() => Container(
 
 Widget buildAMName() => Container(
         child: SizedBox(
-      width: 350,
+      width: double.infinity,
       height: 50.5,
       child: TextField(
           decoration: InputDecoration(
@@ -123,28 +127,47 @@ Widget buildAMName() => Container(
               ))),
     ));
 
-Widget buildDate() => Container(
-        child: SizedBox(
-      width: 350,
-      height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 12),
-              labelText: "Date",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              prefixIcon: Align(
-                widthFactor: 2.0,
-                heightFactor: 1.0,
-                child: Icon(Icons.calendar_today_rounded),
-              ))),
-    ));
+Widget buildDate(_fillout_pageState state, BuildContext context) {
+  return Container(
+      child: SizedBox(
+    width: double.infinity,
+    height: 50.5,
+    child: TextField(
+        readOnly: true,
+        controller: state.date,
+        onTap: () async {
+          DateTime? set_date;
+          var date_input = await showCalendarDatePicker2Dialog(
+            context: context,
+            config: CalendarDatePicker2WithActionButtonsConfig(),
+            dialogSize: const Size(325, 400),
+            borderRadius: BorderRadius.circular(15),
+          ).then((value) {
+            set_date = value?.first;
+            DateFormat formatter = DateFormat("yyyy-MM-dd");
+            state.setState(() {
+              state.date.text = formatter.format(set_date!);
+            });
+          });
+        },
+        decoration: InputDecoration(
+            contentPadding: EdgeInsets.only(left: 12),
+            labelText: "Date",
+            labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10),
+            ),
+            prefixIcon: Align(
+              widthFactor: 2.0,
+              heightFactor: 1.0,
+              child: Icon(Icons.calendar_today_rounded),
+            ))),
+  ));
+}
 
 Widget buildStartTime() => Container(
         child: SizedBox(
-      width: 350,
+      width: double.infinity,
       height: 50.5,
       child: TextField(
           decoration: InputDecoration(
@@ -158,7 +181,7 @@ Widget buildStartTime() => Container(
 
 Widget buildEndTime() => Container(
         child: SizedBox(
-      width: 350,
+      width: double.infinity,
       height: 50.5,
       child: TextField(
           decoration: InputDecoration(
@@ -171,10 +194,11 @@ Widget buildEndTime() => Container(
     ));
 
 Widget buildNxtBtn1(BuildContext context) => Container(
+      width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xFFAA2121),
-            minimumSize: Size(355, 50),
+            minimumSize: Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
         onPressed: () => context.go("/PH"),
