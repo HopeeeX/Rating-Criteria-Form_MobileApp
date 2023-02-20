@@ -174,7 +174,6 @@ class _CSSDA_pageState extends State<CSSDA_page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

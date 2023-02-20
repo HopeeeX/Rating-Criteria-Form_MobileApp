@@ -138,7 +138,6 @@ class _DOMP_pageState extends State<DOMP_page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

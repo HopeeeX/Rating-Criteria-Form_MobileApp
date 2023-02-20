@@ -125,7 +125,6 @@ class _PH_pageState extends State<PH_page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

@@ -198,7 +198,6 @@ class _SAPOM_PageState extends State<SAPOM_Page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

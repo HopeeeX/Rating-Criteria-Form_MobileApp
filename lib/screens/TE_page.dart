@@ -107,7 +107,6 @@ class _TE_PageState extends State<TE_Page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

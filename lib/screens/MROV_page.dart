@@ -114,7 +114,6 @@ class _MROV_pageState extends State<MROV_page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(

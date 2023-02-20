@@ -159,7 +159,6 @@ class _CS_pageState extends State<CS_page> {
                       )),
                 ])),
                 Container(
-                  height: 85,
                   child: Column(
                     children: [
                       Container(
