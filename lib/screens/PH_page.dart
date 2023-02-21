@@ -102,14 +102,23 @@ class _PH_pageState extends State<PH_page> {
                           }),
                     ),
                     Container(
-                      padding: EdgeInsets.only(
-                          top: 17, left: 30, right: 30, bottom: 7),
-                      height: double.infinity,
-                      child: ListView.builder(
-                          itemCount: _cards4.length,
-                          itemBuilder: (context, index) {
-                            return _cards4[index];
-                          }),
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: EdgeInsets.only(
+                                top: 17, left: 30, right: 30, bottom: 7),
+                            height: double.infinity,
+                            child: ListView.builder(
+                                itemCount: _cards4.length,
+                                itemBuilder: (context, index) {
+                                  return _cards4[index];
+                                }),
+                          ),
+                          Container(
+                            child: buildRemarks(),
+                          )
+                        ],
+                      ),
                     ),
                   ]),
                   Container(
