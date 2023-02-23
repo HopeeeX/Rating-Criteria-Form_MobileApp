@@ -75,49 +75,76 @@ class _PH_pageState extends State<PH_page> {
                       padding: EdgeInsets.only(
                           top: 17, left: 30, right: 30, bottom: 7),
                       height: double.infinity,
-                      child: ListView.builder(
-                          itemCount: _cards1.length,
-                          itemBuilder: (context, index) {
-                            return _cards1[index];
-                          }),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: _cards1.length,
+                                itemBuilder: (context, index) {
+                                  return _cards1[index];
+                                }),
+                            buildRemarks()
+                          ],
+                        ),
+                      ),
                     ),
                     Container(
                       padding: EdgeInsets.only(
                           top: 17, left: 30, right: 30, bottom: 7),
                       height: double.infinity,
-                      child: ListView.builder(
-                          itemCount: _cards2.length,
-                          itemBuilder: (context, index) {
-                            return _cards2[index];
-                          }),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: _cards2.length,
+                                itemBuilder: (context, index) {
+                                  return _cards2[index];
+                                }),
+                            buildRemarks()
+                          ],
+                        ),
+                      ),
                     ),
                     Container(
                       padding: EdgeInsets.only(
                           top: 17, left: 30, right: 30, bottom: 7),
                       height: double.infinity,
-                      child: ListView.builder(
-                          itemCount: _cards3.length,
-                          itemBuilder: (context, index) {
-                            return _cards3[index];
-                          }),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
+                                itemCount: _cards3.length,
+                                itemBuilder: (context, index) {
+                                  return _cards3[index];
+                                }),
+                            buildRemarks()
+                          ],
+                        ),
+                      ),
                     ),
                     Container(
-                      child: Column(
-                        children: [
-                          Container(
-                            padding: EdgeInsets.only(
-                                top: 17, left: 30, right: 30, bottom: 7),
-                            height: double.infinity,
-                            child: ListView.builder(
+                      padding: EdgeInsets.only(
+                          top: 17, left: 30, right: 30, bottom: 7),
+                      height: double.infinity,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: [
+                            ListView.builder(
+                                shrinkWrap: true,
+                                physics: NeverScrollableScrollPhysics(),
                                 itemCount: _cards4.length,
                                 itemBuilder: (context, index) {
                                   return _cards4[index];
                                 }),
-                          ),
-                          Container(
-                            child: buildRemarks(),
-                          )
-                        ],
+                            buildRemarks()
+                          ],
+                        ),
                       ),
                     ),
                   ]),
