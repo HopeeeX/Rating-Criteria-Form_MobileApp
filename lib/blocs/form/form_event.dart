@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'form_bloc.dart';
 
 abstract class ResultFormEvent extends Equatable {
@@ -8,8 +9,13 @@ abstract class ResultFormEvent extends Equatable {
 }
 
 class UpdateAnswerEvent extends ResultFormEvent {
-  final int answer;
-  final int index;
+  int answer;
+  String key;
+  int index;
 
-  const UpdateAnswerEvent({required this.answer, required this.index});
+  UpdateAnswerEvent({
+    required this.answer,
+    required this.key,
+    required this.index,
+  });
 }

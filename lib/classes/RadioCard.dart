@@ -1,0 +1,93 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: prefer_const_constructors
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'package:project_1/blocs/form/form_bloc.dart';
+import 'package:project_1/cubits/page/page_cubit.dart';
+import 'package:project_1/screens/PH_page.dart';
+
+class RadioCard extends StatefulWidget {
+  final String text;
+  final String value;
+  final String value_key;
+  final int deck;
+  final State state;
+  bool isSelected;
+  RadioCard({
+    Key? key,
+    required this.text,
+    required this.value,
+    required this.value_key,
+    required this.deck,
+    required this.state,
+    this.isSelected = false,
+  }) : super(key: key);
+
+  @override
+  State<RadioCard> createState() => _RadioCardState();
+}
+
+class _RadioCardState extends State<RadioCard> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        child: Card(
+      color: Colors.white,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      elevation: 5,
+      child: Column(
+        children: [
+          Padding(padding: EdgeInsets.only(top: 18)),
+          Container(
+            padding: EdgeInsets.only(left: 15, right: 15),
+            child: Text(
+              widget.text,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.hahmlet(
+                fontSize: 17,
+              ),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.only(
+            top: 15,
+          )),
+          BlocBuilder<ResultFormBloc, ResultFormState>(
+            builder: (context, state) {
+              Map<String, List<dynamic>> updatedAnswer = state.answers;
+              List? exterior_list = updatedAnswer[widget.value_key];
+              exterior_list = List.from(exterior_list as Iterable);
+              List? interior_list = List.from(exterior_list[widget.deck]);
+
+              return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          widget.isSelected ? Colors.red : Color(0xFFFAF6F6),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10)),
+                      elevation: 4),
+                  child: Text(
+                    widget.value,
+                    style: TextStyle(color: Color(0xFF988686)),
+                  ),
+                  onPressed: () {
+                    interior_list[0] = int.parse(widget.value);
+                    exterior_list![widget.deck] = interior_list;
+                    updatedAnswer[widget.value_key] = exterior_list;
+                    context
+                        .read<ResultFormBloc>()
+                        .emit(ResultFormState(answers: updatedAnswer));
+                    context.pushReplacement("/PH");
+                  });
+            },
+          ),
+          Padding(padding: EdgeInsets.only(bottom: 15))
+        ],
+      ),
+    ));
+  }
+}
