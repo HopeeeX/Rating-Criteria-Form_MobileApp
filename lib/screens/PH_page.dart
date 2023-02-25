@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:project_1/blocs/form/form_bloc.dart';
 import 'package:project_1/classes/RadioCard.dart';
+import 'package:project_1/classes/Remarks.dart';
 import 'package:project_1/classes/SubPages.dart';
 import 'package:project_1/cubits/page/page_cubit.dart';
 import 'package:project_1/cubits/scroll/scroll_cubit.dart';
@@ -103,10 +103,10 @@ class PH_pageState extends State<PH_page> {
                       context.read<PageCubit>().emit(value);
                     },
                     children: [
-                      SubPage(deck: _cards1, Remarks: buildRemarks()),
-                      SubPage(deck: _cards2, Remarks: buildRemarks()),
-                      SubPage(deck: _cards3, Remarks: buildRemarks()),
-                      SubPage(deck: _cards4, Remarks: buildRemarks()),
+                      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
+                      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
+                      SubPage(deck: _cards3, Remarks: buildRemarks(3)),
+                      SubPage(deck: _cards4, Remarks: buildRemarks(4)),
                     ]),
                 Container(
                     alignment: Alignment.topCenter,
@@ -179,28 +179,11 @@ Widget buildCont(BuildContext context) => Container(
       ),
     );
 
-RadioCard buildCard(String text, String value, int deck, State state) {
-  return RadioCard(
-      text: text, value: value, deck: deck, value_key: 'PH', state: state);
-}
+RadioCard buildCard(String text, String value, int deck, State state) =>
+    RadioCard(
+        text: text, value: value, deck: deck, value_key: 'PH', state: state);
 
-//TODO Remarks BLoC Update
-Widget buildRemarks() => Container(
-    padding: EdgeInsets.only(top: 20),
-    alignment: Alignment.topCenter,
-    child: SizedBox(
-      width: 337,
-      height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              fillColor: Color.fromRGBO(236, 228, 228, 1.0),
-              contentPadding: EdgeInsets.only(left: 20),
-              hintText: "Enter your remarks here",
-              hintStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-              ))),
-    ));
+Remarks buildRemarks(int deck) => Remarks(deck: deck, value_key: "PH");
 
 Widget buildNxtBtn(BuildContext context) => Container(
       child: ElevatedButton(
@@ -209,7 +192,9 @@ Widget buildNxtBtn(BuildContext context) => Container(
             minimumSize: Size(355, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/TE"),
+        onPressed: () {
+          context.go("/TE");
+        },
         child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
     );

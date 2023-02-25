@@ -7,18 +7,15 @@ class ResultFormState extends Equatable {
   ResultFormState({required this.answers});
 
   factory ResultFormState.initial() {
-    List empty = new List.filled(10, List<dynamic>.filled(2, null));
     Map<String, List> answers = {
-      "PH": empty,
-      "TE": empty,
-      "CSSDA": empty,
-      "DOMP": empty,
-      "CS": empty,
-      "MROV": empty,
-      "SAPOM": empty
+      "PH": new List.filled(4, List<dynamic>.filled(2, null)),
+      "TE": new List.filled(3, List<dynamic>.filled(2, null)),
+      "CSSDA": new List.filled(7, List<dynamic>.filled(2, null)),
+      "DOMP": new List.filled(5, List<dynamic>.filled(2, null)),
+      "CS": new List.filled(6, List<dynamic>.filled(2, null)),
+      "MROV": new List.filled(4, List<dynamic>.filled(2, null)),
+      "SAPOM": new List.filled(8, List<dynamic>.filled(2, null))
     };
-    int page;
-    int scroll;
     return ResultFormState(answers: answers);
   }
 

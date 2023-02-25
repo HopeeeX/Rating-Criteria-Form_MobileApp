@@ -1,8 +1,14 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:project_1/classes/RadioCard.dart';
+import 'package:project_1/classes/Remarks.dart';
+import 'package:project_1/classes/SubPages.dart';
+import 'package:project_1/cubits/page/page_cubit.dart';
+import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TE_Page extends StatefulWidget {
@@ -11,146 +17,115 @@ class TE_Page extends StatefulWidget {
 }
 
 class _TE_PageState extends State<TE_Page> {
-  final List _cards1 = [
-    buildCard(
-        'Knives, sharpening stone, cleaver and other tools are cleaned and sanitized before the commencement of the day selling',
-        '10'),
-    buildCard('Tools are clean but not in proper location', '8'),
-    buildCard('Tools are clean but are \n broken/dent', '6'),
-    buildCard('Tools are dirty', '4'),
-    buildCard('Tools are incomplete, broken \n and dirty', '2'),
-  ];
-  final List _cards2 = [
-    buildCard(
-        'Equipment/Machineries are in good condition, safe, clean and sanitized before the commencement of the day retailing/selling',
-        '10'),
-    buildCard(
-        'Some equipment/machineries \n are not in good condition but are clean',
-        '8'),
-    buildCard(
-        'Most equipment/machineries \n are not in good condition and are dirty',
-        '6'),
-    buildCard(
-        'All equipment/machineries are \n in good condition but dirty', '4'),
-    buildCard(
-        'All equipment/machineries are broken and unsanitized & dirty', '2'),
-  ];
-  final List _cards3 = [
-    buildCard(
-        'All tools and equipment are \n washed with cleaning agent/detergent (food grade) and rinsed with clean warm water after \n every use',
-        '10'),
-    buildCard(
-        'All tools and equipment are \n washed with detergent (food grade) but not rinsed with clean warm water after every use',
-        '8'),
-    buildCard(
-        'All tools and equipment are not washed immediately every after use',
-        '6'),
-    buildCard('Detergent use for washing is not food grade', '4'),
-    buildCard('All tools and equipment are unsanitized & dirty', '2'),
-  ];
-
-  PageController _controller = PageController();
-
   @override
-  Widget build(BuildContext context) => SafeArea(
-        child: Scaffold(
-            backgroundColor: Color.fromRGBO(121, 112, 112, 1.0),
-            body: Column(
-              children: [
-                Container(
-                  child: buildCont(context),
-                ),
-                Expanded(
-                    child: Stack(children: [
-                  PageView(controller: _controller, children: [
-                    Container(
-                      padding: EdgeInsets.only(
-                          top: 17, left: 30, right: 30, bottom: 7),
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: _cards1.length,
-                                itemBuilder: (context, index) {
-                                  return _cards1[index];
-                                }),
-                            buildRemarks()
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          top: 17, left: 30, right: 30, bottom: 7),
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: _cards2.length,
-                                itemBuilder: (context, index) {
-                                  return _cards2[index];
-                                }),
-                            buildRemarks()
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(
-                          top: 17, left: 30, right: 30, bottom: 7),
-                      height: double.infinity,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            ListView.builder(
-                                shrinkWrap: true,
-                                physics: NeverScrollableScrollPhysics(),
-                                itemCount: _cards3.length,
-                                itemBuilder: (context, index) {
-                                  return _cards3[index];
-                                }),
-                            buildRemarks()
-                          ],
-                        ),
-                      ),
-                    )
-                  ]),
-                  Container(
-                      alignment: Alignment.topCenter,
-                      child: SmoothPageIndicator(
-                        controller: _controller,
-                        count: 3,
-                        effect: ExpandingDotsEffect(
-                            spacing: 7.0,
-                            radius: 5.0,
-                            dotHeight: 10,
-                            activeDotColor: Colors.grey),
-                      )),
-                ])),
-                Container(
-                  child: Column(
+  Widget build(BuildContext context) {
+    PageController controller =
+        PageController(initialPage: context.read<PageCubit>().state);
+    ScrollController scrollController = ScrollController(
+        initialScrollOffset: context.read<ScrollCubit>().state);
+    final List<RadioCard> _cards1 = [
+      buildCard(
+          'Knives, sharpening stone, cleaver and other tools are cleaned and sanitized before the commencement of the day selling',
+          '10',
+          1,
+          this),
+      buildCard('Tools are clean but not in proper location', '8', 1, this),
+      buildCard('Tools are clean but are \n broken/dent', '6', 1, this),
+      buildCard('Tools are dirty', '4', 1, this),
+      buildCard('Tools are incomplete, broken \n and dirty', '2', 1, this),
+    ];
+    final List<RadioCard> _cards2 = [
+      buildCard(
+          'Equipment/Machineries are in good condition, safe, clean and sanitized before the commencement of the day retailing/selling',
+          '10',
+          2,
+          this),
+      buildCard(
+          'Some equipment/machineries \n are not in good condition but are clean',
+          '8',
+          2,
+          this),
+      buildCard(
+          'Most equipment/machineries \n are not in good condition and are dirty',
+          '6',
+          2,
+          this),
+      buildCard('All equipment/machineries are \n in good condition but dirty',
+          '4', 2, this),
+      buildCard('All equipment/machineries are broken and unsanitized & dirty',
+          '2', 2, this),
+    ];
+    final List<RadioCard> _cards3 = [
+      buildCard(
+          'All tools and equipment are \n washed with cleaning agent/detergent (food grade) and rinsed with clean warm water after \n every use',
+          '10',
+          3,
+          this),
+      buildCard(
+          'All tools and equipment are \n washed with detergent (food grade) but not rinsed with clean warm water after every use',
+          '8',
+          3,
+          this),
+      buildCard(
+          'All tools and equipment are not washed immediately every after use',
+          '6',
+          3,
+          this),
+      buildCard('Detergent use for washing is not food grade', '4', 3, this),
+      buildCard(
+          'All tools and equipment are unsanitized & dirty', '2', 3, this),
+    ];
+    return SafeArea(
+      child: Scaffold(
+          backgroundColor: Color.fromRGBO(121, 112, 112, 1.0),
+          body: Column(
+            children: [
+              Container(
+                child: buildCont(context),
+              ),
+              Expanded(
+                  child: Stack(children: [
+                PageView(
+                    onPageChanged: (value) {
+                      context.read<PageCubit>().emit(value);
+                    },
+                    controller: controller,
                     children: [
-                      Container(
-                        child: Text('Select Rate to Proceed',
-                            style: GoogleFonts.hahmlet(
-                                color: Colors.white, fontSize: 15)),
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 5, bottom: 10),
-                        child: buildNxtBtn(context),
-                      )
-                    ],
-                  ),
-                )
-              ],
-            )),
-      );
+                      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
+                      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
+                      SubPage(deck: _cards3, Remarks: buildRemarks(3))
+                    ]),
+                Container(
+                    alignment: Alignment.topCenter,
+                    child: SmoothPageIndicator(
+                      controller: controller,
+                      count: 3,
+                      effect: ExpandingDotsEffect(
+                          spacing: 7.0,
+                          radius: 5.0,
+                          dotHeight: 10,
+                          activeDotColor: Colors.grey),
+                    )),
+              ])),
+              Container(
+                child: Column(
+                  children: [
+                    Container(
+                      child: Text('Select Rate to Proceed',
+                          style: GoogleFonts.hahmlet(
+                              color: Colors.white, fontSize: 15)),
+                    ),
+                    Container(
+                      padding: EdgeInsets.only(top: 5, bottom: 10),
+                      child: buildNxtBtn(context),
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+    );
+  }
 }
 
 Widget buildCont(BuildContext context) => Container(
@@ -184,61 +159,11 @@ Widget buildCont(BuildContext context) => Container(
       ),
     );
 
-Widget buildCard(String text, String value) => Container(
-        child: Card(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      elevation: 5,
-      child: Column(
-        children: [
-          Padding(padding: EdgeInsets.only(top: 18)),
-          Container(
-            padding: EdgeInsets.only(left: 15, right: 15),
-            child: Text(
-              text,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.hahmlet(
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(
-            top: 15,
-          )),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-                primary: Color(0xFFFAF6F6),
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10)),
-                elevation: 4),
-            child: Text(
-              value,
-              style: TextStyle(color: Color(0xFF988686)),
-            ),
-            onPressed: () {},
-          ),
-          Padding(padding: EdgeInsets.only(bottom: 15))
-        ],
-      ),
-    ));
+RadioCard buildCard(String text, String value, int deck, State state) =>
+    RadioCard(
+        text: text, value: value, deck: deck, value_key: 'TE', state: state);
 
-Widget buildRemarks() => Container(
-    padding: EdgeInsets.only(top: 20),
-    alignment: Alignment.topCenter,
-    child: SizedBox(
-      width: 337,
-      height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              fillColor: Color.fromRGBO(236, 228, 228, 1.0),
-              contentPadding: EdgeInsets.only(left: 20),
-              hintText: "Enter your remarks here",
-              hintStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-              ))),
-    ));
+Remarks buildRemarks(int deck) => Remarks(deck: deck, value_key: "TE");
 
 Widget buildNxtBtn(BuildContext context) => Container(
       child: ElevatedButton(

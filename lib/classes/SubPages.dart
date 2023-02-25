@@ -40,7 +40,7 @@ class _SubPageState extends State<SubPage> {
                     itemCount: widget.deck.length,
                     itemBuilder: (context, index) {
                       if (state.answers[widget.deck[index].value_key]![
-                              widget.deck[index].deck][0] ==
+                              widget.deck[index].deck - 1][0] ==
                           int.parse(widget.deck[index].value)) {
                         widget.deck[index].isSelected = true;
                       }

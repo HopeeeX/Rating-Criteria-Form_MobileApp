@@ -1,10 +1,12 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:intl/intl.dart';
+import 'package:project_1/blocs/filler/filler_bloc.dart';
 
 class fillout_page extends StatefulWidget {
   @override
@@ -89,79 +91,116 @@ Widget buildOutletName() => Container(
         child: SizedBox(
       width: double.infinity,
       height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20),
-              labelText: "Name of Outlet",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ))),
+      child: BlocBuilder<FillerBloc, FillerState>(
+        builder: (context, state) {
+          return TextField(
+              onChanged: (value) {
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[0] = value;
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+                print(state.info);
+              },
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  labelText: "Name of Outlet",
+                  labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )));
+        },
+      ),
     ));
 
 Widget buildButcherName() => Container(
         child: SizedBox(
       width: double.infinity,
       height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20),
-              labelText: "Head Butcher Name",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ))),
+      child: BlocBuilder<FillerBloc, FillerState>(
+        builder: (context, state) {
+          return TextField(
+              onChanged: (value) {
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[1] = value;
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+                print(state.info);
+              },
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  labelText: "Head Butcher Name",
+                  labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )));
+        },
+      ),
     ));
 
 Widget buildAMName() => Container(
         child: SizedBox(
       width: double.infinity,
       height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20),
-              labelText: "Area Manager Name",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ))),
+      child: BlocBuilder<FillerBloc, FillerState>(
+        builder: (context, state) {
+          return TextField(
+              onChanged: (value) {
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[2] = value;
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+                print(state.info);
+              },
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  labelText: "Area Manager Name",
+                  labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )));
+        },
+      ),
     ));
 
-Widget buildDate(_fillout_pageState state, BuildContext context) {
+Widget buildDate(_fillout_pageState date_state, BuildContext context) {
   return Container(
       child: SizedBox(
     width: double.infinity,
     height: 50.5,
-    child: TextField(
-        readOnly: true,
-        controller: state.date,
-        onTap: () async {
-          DateTime? set_date;
-          var date_input = await showCalendarDatePicker2Dialog(
-            context: context,
-            config: CalendarDatePicker2WithActionButtonsConfig(),
-            dialogSize: const Size(325, 400),
-            borderRadius: BorderRadius.circular(15),
-          ).then((value) {
-            set_date = value?.first;
-            DateFormat formatter = DateFormat("yyyy-MM-dd");
-            state.setState(() {
-              state.date.text = formatter.format(set_date!);
-            });
-          });
-        },
-        decoration: InputDecoration(
-            contentPadding: EdgeInsets.only(left: 12),
-            labelText: "Date",
-            labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10),
-            ),
-            prefixIcon: Align(
-              widthFactor: 2.0,
-              heightFactor: 1.0,
-              child: Icon(Icons.calendar_today_rounded),
-            ))),
+    child: BlocBuilder<FillerBloc, FillerState>(
+      builder: (context, state) {
+        return TextField(
+            readOnly: true,
+            controller: date_state.date,
+            onTap: () async {
+              DateTime? set_date;
+              var date_input = await showCalendarDatePicker2Dialog(
+                context: context,
+                config: CalendarDatePicker2WithActionButtonsConfig(),
+                dialogSize: const Size(325, 400),
+                borderRadius: BorderRadius.circular(15),
+              ).then((value) {
+                set_date = value?.first;
+                DateFormat formatter = DateFormat("yyyy-MM-dd");
+                date_state.setState(() {
+                  date_state.date.text = formatter.format(set_date!);
+                });
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[3] = formatter.format(set_date!);
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+              });
+            },
+            decoration: InputDecoration(
+                contentPadding: EdgeInsets.only(left: 12),
+                labelText: "Date",
+                labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                prefixIcon: Align(
+                  widthFactor: 2.0,
+                  heightFactor: 1.0,
+                  child: Icon(Icons.calendar_today_rounded),
+                )));
+      },
+    ),
   ));
 }
 
@@ -169,28 +208,48 @@ Widget buildStartTime() => Container(
         child: SizedBox(
       width: double.infinity,
       height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20),
-              labelText: "Start Time",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ))),
+      child: BlocBuilder<FillerBloc, FillerState>(
+        builder: (context, state) {
+          return TextField(
+              onChanged: (value) {
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[4] = value;
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+                print(state.info);
+              },
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  labelText: "Start Time",
+                  labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )));
+        },
+      ),
     ));
 
 Widget buildEndTime() => Container(
         child: SizedBox(
       width: double.infinity,
       height: 50.5,
-      child: TextField(
-          decoration: InputDecoration(
-              contentPadding: EdgeInsets.only(left: 20),
-              labelText: "End Time",
-              labelStyle: GoogleFonts.hahmlet(fontSize: 14),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(10),
-              ))),
+      child: BlocBuilder<FillerBloc, FillerState>(
+        builder: (context, state) {
+          return TextField(
+              onChanged: (value) {
+                List<String> updatedInfo = List.from(state.info);
+                updatedInfo[5] = value;
+                context.read<FillerBloc>().emit(FillerState(info: updatedInfo));
+                print(state.info);
+              },
+              decoration: InputDecoration(
+                  contentPadding: EdgeInsets.only(left: 20),
+                  labelText: "End Time",
+                  labelStyle: GoogleFonts.hahmlet(fontSize: 14),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  )));
+        },
+      ),
     ));
 
 Widget buildNxtBtn1(BuildContext context) => Container(

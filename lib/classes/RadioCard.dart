@@ -61,7 +61,7 @@ class _RadioCardState extends State<RadioCard> {
               final updatedAnswer = state.answers;
               List? exterior_list = updatedAnswer[widget.value_key];
               exterior_list = List.from(exterior_list!);
-              final interior_list = List.from(exterior_list[widget.deck]);
+              final interior_list = List.from(exterior_list[widget.deck - 1]);
 
               final buttonText = Text(
                 widget.value,
@@ -79,13 +79,13 @@ class _RadioCardState extends State<RadioCard> {
                 child: buttonText,
                 onPressed: () {
                   interior_list[0] = int.parse(widget.value);
-                  exterior_list![widget.deck] = interior_list;
+                  exterior_list![widget.deck - 1] = interior_list;
                   updatedAnswer[widget.value_key] = exterior_list;
                   context
                       .read<ResultFormBloc>()
                       .emit(ResultFormState(answers: updatedAnswer));
-                  print(updatedAnswer);
-                  context.pushReplacement('/PH');
+                  print(state.answers);
+                  context.pushReplacement(GoRouter.of(context).location);
                 },
               );
             },

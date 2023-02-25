@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:project_1/blocs/filler/filler_bloc.dart';
 import 'package:project_1/blocs/form/form_bloc.dart';
 import 'package:project_1/cubits/page/page_cubit.dart';
 import 'package:project_1/cubits/scroll/scroll_cubit.dart';
@@ -32,23 +33,21 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (BuildContext context) => ResultFormBloc()),
+        BlocProvider(create: (BuildContext context) => FillerBloc()),
         BlocProvider(create: (BuildContext context) => PageCubit()),
         BlocProvider(create: (BuildContext context) => ScrollCubit())
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         routerConfig: _router,
-        builder: (context, child) => InheritedGoRouter(
-          goRouter: _router,
-          child: ResponsiveWrapper.builder(child,
-              maxWidth: 1280,
-              minWidth: 411,
-              defaultScale: true,
-              breakpoints: [
-                ResponsiveBreakpoint.resize(411, name: MOBILE),
-                ResponsiveBreakpoint.autoScale(800, name: TABLET),
-              ]),
-        ),
+        builder: (context, child) => ResponsiveWrapper.builder(child,
+            maxWidth: 1280,
+            minWidth: 411,
+            defaultScale: true,
+            breakpoints: [
+              ResponsiveBreakpoint.resize(411, name: MOBILE),
+              ResponsiveBreakpoint.autoScale(800, name: TABLET),
+            ]),
       ),
     );
   }
