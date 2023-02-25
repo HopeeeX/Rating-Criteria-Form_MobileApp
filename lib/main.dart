@@ -36,15 +36,19 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (BuildContext context) => ScrollCubit())
       ],
       child: MaterialApp.router(
+        debugShowCheckedModeBanner: false,
         routerConfig: _router,
-        builder: (context, child) => ResponsiveWrapper.builder(child,
-            maxWidth: 1280,
-            minWidth: 411,
-            defaultScale: true,
-            breakpoints: [
-              ResponsiveBreakpoint.resize(411, name: MOBILE),
-              ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ]),
+        builder: (context, child) => InheritedGoRouter(
+          goRouter: _router,
+          child: ResponsiveWrapper.builder(child,
+              maxWidth: 1280,
+              minWidth: 411,
+              defaultScale: true,
+              breakpoints: [
+                ResponsiveBreakpoint.resize(411, name: MOBILE),
+                ResponsiveBreakpoint.autoScale(800, name: TABLET),
+              ]),
+        ),
       ),
     );
   }

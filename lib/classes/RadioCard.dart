@@ -58,31 +58,36 @@ class _RadioCardState extends State<RadioCard> {
           )),
           BlocBuilder<ResultFormBloc, ResultFormState>(
             builder: (context, state) {
-              Map<String, List<dynamic>> updatedAnswer = state.answers;
+              final updatedAnswer = state.answers;
               List? exterior_list = updatedAnswer[widget.value_key];
-              exterior_list = List.from(exterior_list as Iterable);
-              List? interior_list = List.from(exterior_list[widget.deck]);
+              exterior_list = List.from(exterior_list!);
+              final interior_list = List.from(exterior_list[widget.deck]);
+
+              final buttonText = Text(
+                widget.value,
+                style: TextStyle(color: const Color(0xFF988686)),
+              );
 
               return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor:
-                          widget.isSelected ? Colors.red : Color(0xFFFAF6F6),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10)),
-                      elevation: 4),
-                  child: Text(
-                    widget.value,
-                    style: TextStyle(color: Color(0xFF988686)),
-                  ),
-                  onPressed: () {
-                    interior_list[0] = int.parse(widget.value);
-                    exterior_list![widget.deck] = interior_list;
-                    updatedAnswer[widget.value_key] = exterior_list;
-                    context
-                        .read<ResultFormBloc>()
-                        .emit(ResultFormState(answers: updatedAnswer));
-                    context.pushReplacement("/PH");
-                  });
+                style: ElevatedButton.styleFrom(
+                  backgroundColor:
+                      widget.isSelected ? Colors.red : const Color(0xFFFAF6F6),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  elevation: 4,
+                ),
+                child: buttonText,
+                onPressed: () {
+                  interior_list[0] = int.parse(widget.value);
+                  exterior_list![widget.deck] = interior_list;
+                  updatedAnswer[widget.value_key] = exterior_list;
+                  context
+                      .read<ResultFormBloc>()
+                      .emit(ResultFormState(answers: updatedAnswer));
+                  print(updatedAnswer);
+                  context.pushReplacement('/PH');
+                },
+              );
             },
           ),
           Padding(padding: EdgeInsets.only(bottom: 15))
