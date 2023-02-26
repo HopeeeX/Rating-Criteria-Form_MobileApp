@@ -51,8 +51,7 @@ Widget buildCharacter() => Container(
       ),
     );
 
-Widget buildCont(BuildContext context) => Expanded(
-        child: Container(
+Widget buildCont(BuildContext context) => Container(
       width: double.infinity,
       height: double.infinity,
       child: Card(
@@ -89,4 +88,4 @@ Widget buildCont(BuildContext context) => Expanded(
           ],
         ),
       ),
-    ));
+    );
