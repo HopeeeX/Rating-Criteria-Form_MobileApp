@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DateTime.now().microsecondsSinceEpoch < 1680264000000
+    return DateTime.now().millisecondsSinceEpoch < 1680192000000
         ? MultiBlocProvider(
             providers: [
               BlocProvider(create: (BuildContext context) => ResultFormBloc()),
