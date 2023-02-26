@@ -8,13 +8,13 @@ class ResultFormState extends Equatable {
 
   factory ResultFormState.initial() {
     Map<String, List> answers = {
-      "PH": new List.filled(4, List<dynamic>.filled(2, null)),
-      "TE": new List.filled(3, List<dynamic>.filled(2, null)),
-      "CSSDA": new List.filled(7, List<dynamic>.filled(2, null)),
-      "DOMP": new List.filled(5, List<dynamic>.filled(2, null)),
-      "CS": new List.filled(6, List<dynamic>.filled(2, null)),
-      "MROV": new List.filled(4, List<dynamic>.filled(2, null)),
-      "SAPOM": new List.filled(8, List<dynamic>.filled(2, null))
+      "PH": new List.filled(4, List<dynamic>.filled(2, "")),
+      "TE": new List.filled(3, List<dynamic>.filled(2, "")),
+      "CSSDA": new List.filled(7, List<dynamic>.filled(2, "")),
+      "DOMP": new List.filled(5, List<dynamic>.filled(2, "")),
+      "CS": new List.filled(6, List<dynamic>.filled(2, "")),
+      "MROV": new List.filled(4, List<dynamic>.filled(2, "")),
+      "SAPOM": new List.filled(8, List<dynamic>.filled(2, ""))
     };
     return ResultFormState(answers: answers);
   }

@@ -73,6 +73,12 @@ class _MROV_pageState extends State<MROV_page> {
           'Fast moving products only available \n for the day', '4', 4, this),
       buildCard('No available fast moving products', '2', 4, this)
     ];
+    List<SubPage> pages = [
+      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
+      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
+      SubPage(deck: _cards3, Remarks: buildRemarks(3)),
+      SubPage(deck: _cards4, Remarks: buildRemarks(4)),
+    ];
     return SafeArea(
       child: Scaffold(
           backgroundColor: Color.fromRGBO(121, 112, 112, 1.0),
@@ -88,12 +94,7 @@ class _MROV_pageState extends State<MROV_page> {
                       context.read<PageCubit>().emit(value);
                     },
                     controller: controller,
-                    children: [
-                      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
-                      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
-                      SubPage(deck: _cards3, Remarks: buildRemarks(3)),
-                      SubPage(deck: _cards4, Remarks: buildRemarks(4)),
-                    ]),
+                    children: pages),
                 Container(
                     alignment: Alignment.topCenter,
                     child: SmoothPageIndicator(
@@ -116,7 +117,7 @@ class _MROV_pageState extends State<MROV_page> {
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 5, bottom: 10),
-                      child: buildNxtBtn(context),
+                      child: buildNxtBtn(context, controller, pages),
                     )
                   ],
                 ),
@@ -164,14 +165,25 @@ RadioCard buildCard(String text, String value, int deck, State state) =>
 
 Remarks buildRemarks(int deck) => Remarks(deck: deck, value_key: "MROV");
 
-Widget buildNxtBtn(BuildContext context) => Container(
+Widget buildNxtBtn(
+        BuildContext context, PageController controller, List pages) =>
+    Container(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xFFAA2121),
             minimumSize: Size(355, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/rating"),
+        onPressed: () {
+          if (controller.page != pages.length - 1) {
+            controller.nextPage(
+                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+          } else {
+            BlocProvider.of<PageCubit>(context).emit(0);
+            BlocProvider.of<ScrollCubit>(context).emit(0);
+            context.go("/rating");
+          }
+        },
         child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
     );

@@ -10,6 +10,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lecle_downloads_path_provider/lecle_downloads_path_provider.dart';
 import 'package:project_1/blocs/filler/filler_bloc.dart';
 import 'package:project_1/blocs/form/form_bloc.dart';
+import 'package:project_1/cubits/page/page_cubit.dart';
+import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:open_file/open_file.dart';
 
@@ -28,7 +30,15 @@ class _generate_formState extends State<generate_form> {
             actions: [
               Container(
                   child: TextButton(
-                      onPressed: () => context.go("/"),
+                      onPressed: () {
+                        BlocProvider.of<ResultFormBloc>(context)
+                            .emit(ResultFormState.initial());
+                        BlocProvider.of<FillerBloc>(context)
+                            .emit(FillerState.initial());
+                        BlocProvider.of<PageCubit>(context).emit(0);
+                        BlocProvider.of<ScrollCubit>(context).emit(0);
+                        context.go("/");
+                      },
                       child: Text(
                         'Sign Out',
                         style: GoogleFonts.hahmlet(
@@ -77,18 +87,23 @@ Widget buildCard(BuildContext context) => Container(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
             onPressed: () async {
-              final filler = BlocProvider.of<FillerBloc>(context);
-              final resultform = BlocProvider.of<ResultFormBloc>(context);
-              var template = await rootBundle.load('assets/template.pdf');
+              final FillerBloc filler = BlocProvider.of<FillerBloc>(context);
+              final ResultFormBloc resultform =
+                  BlocProvider.of<ResultFormBloc>(context);
+              ByteData template = await rootBundle.load('assets/template.pdf');
               Uint8List documentBytes = template.buffer.asUint8List();
               final PdfDocument document =
                   PdfDocument(inputBytes: documentBytes);
-              PdfForm form = document.form;
               int i = 0;
               //Filler
               while (i <= 5) {
-                PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                field.text = filler.state.info[i];
+                for (int j = 0; j <= document.form.fields.count - 1; j++) {
+                  if (document.form.fields[j].name! == i.toString()) {
+                    PdfTextBoxField field =
+                        document.form.fields[j] as PdfTextBoxField;
+                    field.text = filler.state.info[i];
+                  }
+                }
                 i++;
               }
               //ResultForm
@@ -98,91 +113,202 @@ Widget buildCard(BuildContext context) => Container(
                 int curr_page;
                 if (i <= 13) {
                   key = "PH";
-                  curr_page = 0;
                   while (i <= 13) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                    if (i <= 9) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 6][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 9 && i <= 13) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 10][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 13 && i <= 19) {
+
+                if (i <= 19) {
                   key = "TE";
-                  curr_page = 0;
-                  while (i > 13 && i <= 19) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 19) {
+                    if (i <= 16) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 14][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 16 && i <= 19) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 17][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 19 && i <= 29) {
+
+                if (i <= 29) {
                   key = "DOMP";
-                  curr_page = 0;
-                  while (i > 19 && i <= 29) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 29) {
+                    if (i <= 24) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 20][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 24 && i <= 29) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 25][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 29 && i <= 45) {
+
+                if (i <= 45) {
                   key = "SAPOM";
-                  curr_page = 0;
-                  while (i > 29 && i <= 45) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 45) {
+                    if (i <= 37) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 30][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 37 && i <= 45) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 38][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 45 && i <= 59) {
+
+                if (i <= 59) {
                   key = "CSSDA";
-                  curr_page = 0;
-                  while (i > 45 && i <= 59) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 59) {
+                    if (i <= 52) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 46][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 52 && i <= 59) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 53][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 59 && i <= 71) {
+
+                if (i <= 71) {
                   key = "CS";
-                  curr_page = 0;
-                  while (i > 59 && i <= 71) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 71) {
+                    if (i <= 65) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 60][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 65 && i <= 71) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 66][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }
                 }
-                if (i > 71 && i <= 79) {
+
+                if (i <= 79) {
                   key = "MROV";
-                  curr_page = 0;
-                  while (i > 71 && i <= 79) {
-                    PdfTextBoxField field = form.fields[i] as PdfTextBoxField;
-                    int inner_field = i % 2;
-                    field.text = answers[key]![curr_page][inner_field];
-                    if (inner_field == 1) {
-                      curr_page++;
+                  while (i <= 79) {
+                    if (i <= 75) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 72][0].toString();
+                        }
+                      }
+                    }
+                    if (i > 75 && i <= 79) {
+                      for (int j = 0;
+                          j <= document.form.fields.count - 1;
+                          j++) {
+                        if (document.form.fields[j].name! == i.toString()) {
+                          PdfTextBoxField field =
+                              document.form.fields[j] as PdfTextBoxField;
+                          field.text = answers[key]![i - 76][1].toString();
+                        }
+                      }
                     }
                     i++;
                   }

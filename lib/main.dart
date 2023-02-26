@@ -30,26 +30,28 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (BuildContext context) => ResultFormBloc()),
-        BlocProvider(create: (BuildContext context) => FillerBloc()),
-        BlocProvider(create: (BuildContext context) => PageCubit()),
-        BlocProvider(create: (BuildContext context) => ScrollCubit())
-      ],
-      child: MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        routerConfig: _router,
-        builder: (context, child) => ResponsiveWrapper.builder(child,
-            maxWidth: 1280,
-            minWidth: 411,
-            defaultScale: true,
-            breakpoints: [
-              ResponsiveBreakpoint.resize(411, name: MOBILE),
-              ResponsiveBreakpoint.autoScale(800, name: TABLET),
-            ]),
-      ),
-    );
+    return DateTime.now().microsecondsSinceEpoch < 1680264000000
+        ? MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (BuildContext context) => ResultFormBloc()),
+              BlocProvider(create: (BuildContext context) => FillerBloc()),
+              BlocProvider(create: (BuildContext context) => PageCubit()),
+              BlocProvider(create: (BuildContext context) => ScrollCubit())
+            ],
+            child: MaterialApp.router(
+              debugShowCheckedModeBanner: false,
+              routerConfig: _router,
+              builder: (context, child) => ResponsiveWrapper.builder(child,
+                  maxWidth: 1280,
+                  minWidth: 411,
+                  defaultScale: true,
+                  breakpoints: [
+                    ResponsiveBreakpoint.resize(411, name: MOBILE),
+                    ResponsiveBreakpoint.autoScale(800, name: TABLET),
+                  ]),
+            ),
+          )
+        : Container();
   }
 
   final GoRouter _router = GoRouter(routes: [

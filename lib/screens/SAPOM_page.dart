@@ -123,6 +123,16 @@ class _SAPOM_PageState extends State<SAPOM_Page> {
           '4', 8, this),
       buildCard('Some meat products are expired', '2', 8, this),
     ];
+    List<SubPage> pages = [
+      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
+      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
+      SubPage(deck: _cards3, Remarks: buildRemarks(3)),
+      SubPage(deck: _cards4, Remarks: buildRemarks(4)),
+      SubPage(deck: _cards5, Remarks: buildRemarks(5)),
+      SubPage(deck: _cards6, Remarks: buildRemarks(6)),
+      SubPage(deck: _cards7, Remarks: buildRemarks(7)),
+      SubPage(deck: _cards8, Remarks: buildRemarks(8)),
+    ];
     PageController controller =
         PageController(initialPage: context.read<PageCubit>().state);
     ScrollController scrollController = ScrollController(
@@ -142,16 +152,7 @@ class _SAPOM_PageState extends State<SAPOM_Page> {
                       context.read<PageCubit>().emit(value);
                     },
                     controller: controller,
-                    children: [
-                      SubPage(deck: _cards1, Remarks: buildRemarks(1)),
-                      SubPage(deck: _cards2, Remarks: buildRemarks(2)),
-                      SubPage(deck: _cards3, Remarks: buildRemarks(3)),
-                      SubPage(deck: _cards4, Remarks: buildRemarks(4)),
-                      SubPage(deck: _cards5, Remarks: buildRemarks(5)),
-                      SubPage(deck: _cards6, Remarks: buildRemarks(6)),
-                      SubPage(deck: _cards7, Remarks: buildRemarks(7)),
-                      SubPage(deck: _cards8, Remarks: buildRemarks(8)),
-                    ]),
+                    children: pages),
                 Container(
                     alignment: Alignment.topCenter,
                     child: SmoothPageIndicator(
@@ -174,7 +175,7 @@ class _SAPOM_PageState extends State<SAPOM_Page> {
                     ),
                     Container(
                       padding: EdgeInsets.only(top: 5, bottom: 10),
-                      child: buildNxtBtn(context),
+                      child: buildNxtBtn(context, controller, pages),
                     )
                   ],
                 ),
@@ -222,14 +223,25 @@ RadioCard buildCard(String text, String value, int deck, State state) =>
 
 Remarks buildRemarks(int deck) => Remarks(deck: deck, value_key: "SAPOM");
 
-Widget buildNxtBtn(BuildContext context) => Container(
+Widget buildNxtBtn(
+        BuildContext context, PageController controller, List pages) =>
+    Container(
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
             primary: Color(0xFFAA2121),
             minimumSize: Size(355, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/CSSDA"),
+        onPressed: () {
+          if (controller.page != pages.length - 1) {
+            controller.nextPage(
+                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+          } else {
+            BlocProvider.of<PageCubit>(context).emit(0);
+            BlocProvider.of<ScrollCubit>(context).emit(0);
+            context.go("/CSSDA");
+          }
+        },
         child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
       ),
     );
