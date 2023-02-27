@@ -34,22 +34,18 @@ class _rating_finishState extends State<rating_finish> {
       ));
 }
 
-Widget buildTxt() => Container(
-      child: Text(
-          "Great! You've finished your \nratings, click continue to generate \nyour form.",
-          maxLines: 3,
-          textAlign: TextAlign.center,
-          style: GoogleFonts.hahmlet(fontSize: 17)),
-    );
+Widget buildTxt() => Text(
+    "Great! You've finished your \nratings, click continue to generate \nyour form.",
+    maxLines: 3,
+    textAlign: TextAlign.center,
+    style: GoogleFonts.hahmlet(fontSize: 17));
 
-Widget buildContinueBtn(BuildContext context) => Container(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: Color(0xFFAA2121),
-            minimumSize: Size(300, 50),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/generate"),
-        child: Text('Continue', style: GoogleFonts.hahmlet(fontSize: 17)),
-      ),
+Widget buildContinueBtn(BuildContext context) => ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFAA2121),
+          minimumSize: Size(300, 50),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      onPressed: () => context.go("/generate"),
+      child: Text('Continue', style: GoogleFonts.hahmlet(fontSize: 17)),
     );

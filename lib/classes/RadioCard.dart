@@ -3,12 +3,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'package:project_1/blocs/form/form_bloc.dart';
-import 'package:project_1/cubits/page/page_cubit.dart';
-import 'package:project_1/screens/PH_page.dart';
 
 class RadioCard extends StatefulWidget {
   final String text;
@@ -34,8 +31,7 @@ class RadioCard extends StatefulWidget {
 class _RadioCardState extends State<RadioCard> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: Card(
+    return Card(
       color: Colors.white,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       elevation: 5,
@@ -85,7 +81,7 @@ class _RadioCardState extends State<RadioCard> {
                       .read<ResultFormBloc>()
                       .emit(ResultFormState(answers: updatedAnswer));
                   print(state.answers);
-                  context.pushReplacement(GoRouter.of(context).location);
+                  widget.state.setState(() {});
                 },
               );
             },
@@ -93,6 +89,6 @@ class _RadioCardState extends State<RadioCard> {
           Padding(padding: EdgeInsets.only(bottom: 15))
         ],
       ),
-    ));
+    );
   }
 }

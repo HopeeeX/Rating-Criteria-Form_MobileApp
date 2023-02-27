@@ -10,8 +10,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:lecle_downloads_path_provider/lecle_downloads_path_provider.dart';
 import 'package:project_1/blocs/filler/filler_bloc.dart';
 import 'package:project_1/blocs/form/form_bloc.dart';
-import 'package:project_1/cubits/page/page_cubit.dart';
-import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:open_file/open_file.dart';
 
@@ -35,8 +33,6 @@ class _generate_formState extends State<generate_form> {
                             .emit(ResultFormState.initial());
                         BlocProvider.of<FillerBloc>(context)
                             .emit(FillerState.initial());
-                        BlocProvider.of<PageCubit>(context).emit(0);
-                        BlocProvider.of<ScrollCubit>(context).emit(0);
                         context.go("/");
                       },
                       child: Text(
@@ -56,7 +52,7 @@ class _generate_formState extends State<generate_form> {
           ])));
 }
 
-Widget buildCard(BuildContext context) => Container(
+Widget buildCard(BuildContext context) => SizedBox(
     width: 350,
     height: 190,
     child: Card(
@@ -82,7 +78,7 @@ Widget buildCard(BuildContext context) => Container(
           )),
           ElevatedButton(
             style: ElevatedButton.styleFrom(
-                primary: Color(0xFFAA2121),
+                backgroundColor: Color(0xFFAA2121),
                 minimumSize: Size(300, 50),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10))),
@@ -110,7 +106,6 @@ Widget buildCard(BuildContext context) => Container(
               while (i <= 79) {
                 Map<String, List> answers = resultform.state.answers;
                 String? key;
-                int curr_page;
                 if (i <= 13) {
                   key = "PH";
                   while (i <= 13) {
@@ -317,9 +312,9 @@ Widget buildCard(BuildContext context) => Container(
 
               document.form.flattenAllFields();
               Directory? downloads = await DownloadsPath.downloadsDirectory();
-              List<int> output_bytes = await document.save();
+              List<int> outputBytes = await document.save();
               File('${downloads?.path}/${filler.state.info[0]}.pdf')
-                  .writeAsBytesSync(output_bytes);
+                  .writeAsBytesSync(outputBytes);
               document.dispose();
               OpenFile.open('${downloads?.path}/${filler.state.info[0]}.pdf');
             },

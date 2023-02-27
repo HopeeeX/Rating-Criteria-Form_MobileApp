@@ -67,13 +67,10 @@ Widget buildCont3(BuildContext context) => Container(
         boxShadow: [BoxShadow(blurRadius: 1.0)]),
     child: Stack(
       children: [
-        Container(
-            child: InkWell(
+        InkWell(
           onTap: () => context.go("/visitor"),
-          child: Container(
-            child: Image.asset("assets/images/back_button.png"),
-          ),
-        )),
+          child: Image.asset("assets/images/back_button.png"),
+        ),
         Container(
             padding: EdgeInsets.only(top: 60, left: 5),
             child: Text(
@@ -87,8 +84,7 @@ Widget buildCont3(BuildContext context) => Container(
       ],
     ));
 
-Widget buildOutletName() => Container(
-        child: SizedBox(
+Widget buildOutletName() => SizedBox(
       width: double.infinity,
       height: 50.5,
       child: BlocBuilder<FillerBloc, FillerState>(
@@ -109,10 +105,9 @@ Widget buildOutletName() => Container(
                   )));
         },
       ),
-    ));
+    );
 
-Widget buildButcherName() => Container(
-        child: SizedBox(
+Widget buildButcherName() => SizedBox(
       width: double.infinity,
       height: 50.5,
       child: BlocBuilder<FillerBloc, FillerState>(
@@ -133,10 +128,9 @@ Widget buildButcherName() => Container(
                   )));
         },
       ),
-    ));
+    );
 
-Widget buildAMName() => Container(
-        child: SizedBox(
+Widget buildAMName() => SizedBox(
       width: double.infinity,
       height: 50.5,
       child: BlocBuilder<FillerBloc, FillerState>(
@@ -157,11 +151,10 @@ Widget buildAMName() => Container(
                   )));
         },
       ),
-    ));
+    );
 
 Widget buildDate(_fillout_pageState date_state, BuildContext context) {
-  return Container(
-      child: SizedBox(
+  return SizedBox(
     width: double.infinity,
     height: 50.5,
     child: BlocBuilder<FillerBloc, FillerState>(
@@ -201,11 +194,10 @@ Widget buildDate(_fillout_pageState date_state, BuildContext context) {
                 )));
       },
     ),
-  ));
+  );
 }
 
-Widget buildStartTime() => Container(
-        child: SizedBox(
+Widget buildStartTime() => SizedBox(
       width: double.infinity,
       height: 50.5,
       child: BlocBuilder<FillerBloc, FillerState>(
@@ -226,10 +218,9 @@ Widget buildStartTime() => Container(
                   )));
         },
       ),
-    ));
+    );
 
-Widget buildEndTime() => Container(
-        child: SizedBox(
+Widget buildEndTime() => SizedBox(
       width: double.infinity,
       height: 50.5,
       child: BlocBuilder<FillerBloc, FillerState>(
@@ -250,13 +241,13 @@ Widget buildEndTime() => Container(
                   )));
         },
       ),
-    ));
+    );
 
-Widget buildNxtBtn1(BuildContext context) => Container(
+Widget buildNxtBtn1(BuildContext context) => SizedBox(
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-            primary: Color(0xFFAA2121),
+            backgroundColor: Color(0xFFAA2121),
             minimumSize: Size(double.infinity, 50),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10))),

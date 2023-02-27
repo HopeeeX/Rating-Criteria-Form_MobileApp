@@ -33,7 +33,7 @@ class _visitor_pageState extends State<visitor_page> {
       )));
 }
 
-Widget buildSignOut(BuildContext context) => Container(
+Widget buildSignOut(BuildContext context) => SizedBox(
     width: 85,
     height: 30,
     child: TextButton(
@@ -44,14 +44,12 @@ Widget buildSignOut(BuildContext context) => Container(
       ),
     ));
 
-Widget buildCharacter() => Container(
-      child: Image.asset(
-        "assets/images/Character.png",
-        scale: 0.8,
-      ),
+Widget buildCharacter() => Image.asset(
+      "assets/images/Character.png",
+      scale: 0.8,
     );
 
-Widget buildCont(BuildContext context) => Container(
+Widget buildCont(BuildContext context) => SizedBox(
       width: double.infinity,
       height: double.infinity,
       child: Card(
@@ -75,7 +73,7 @@ Widget buildCont(BuildContext context) => Container(
             )),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
-                  primary: Color(0xFFAA2121),
+                  backgroundColor: Color(0xFFAA2121),
                   minimumSize: Size(320, 50),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10))),

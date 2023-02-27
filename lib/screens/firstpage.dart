@@ -29,13 +29,13 @@ class _FirstPageState extends State<FirstPage> {
       )));
 }
 
-Widget buildLogo() => Container(
+Widget buildLogo() => SizedBox(
       height: 60,
       width: 200,
       child: Image.asset("assets/images/logo.png"),
     );
 
-Widget buildAppName() => Container(
+Widget buildAppName() => SizedBox(
       width: 350,
       child: Text(
         'OUTLET VISIT CHECKLIST',
@@ -46,17 +46,15 @@ Widget buildAppName() => Container(
       ),
     );
 
-Widget buildClickBtn(BuildContext context) => Container(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: Color(0xFFAA2121),
-            minimumSize: Size(170, 48),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10))),
-        onPressed: () => context.go("/visitor"),
-        child: Text(
-          'Click Here',
-          style: GoogleFonts.hahmlet(fontSize: 18),
-        ),
+Widget buildClickBtn(BuildContext context) => ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          backgroundColor: Color(0xFFAA2121),
+          minimumSize: Size(170, 48),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      onPressed: () => context.go("/visitor"),
+      child: Text(
+        'Click Here',
+        style: GoogleFonts.hahmlet(fontSize: 18),
       ),
     );

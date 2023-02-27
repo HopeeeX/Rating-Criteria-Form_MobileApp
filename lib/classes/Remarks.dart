@@ -29,7 +29,7 @@ class _RemarksState extends State<Remarks> {
             final interior_list = List.from(exterior_list[widget.deck - 1]);
             return TextField(
                 controller: TextEditingController()
-                  ..text = interior_list[1] == null ? "" : interior_list[1],
+                  ..text = interior_list[1] ?? "",
                 onChanged: (value) {
                   interior_list[1] = value;
                   exterior_list![widget.deck - 1] = interior_list;

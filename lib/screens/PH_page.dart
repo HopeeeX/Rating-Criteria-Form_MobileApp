@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use, avoid_unnecessary_containers, sized_box_for_whitespace
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_1/classes/RadioCard.dart';
 import 'package:project_1/classes/Remarks.dart';
 import 'package:project_1/classes/SubPages.dart';
-import 'package:project_1/cubits/page/page_cubit.dart';
-import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class PH_page extends StatefulWidget {
@@ -19,10 +16,7 @@ class PH_page extends StatefulWidget {
 class PH_pageState extends State<PH_page> {
   @override
   Widget build(BuildContext context) {
-    PageController controller =
-        PageController(initialPage: context.read<PageCubit>().state);
-    ScrollController scrollController = ScrollController(
-        initialScrollOffset: context.read<ScrollCubit>().state);
+    PageController controller = PageController();
     final List<RadioCard> _cards1 = [
       buildCard(
           'Wear clean uniform, Apron, Face mask/Spit Guard, gloves, hairnet, visor cap, lab gown and boots or any PPE required by the retail outlet',
@@ -103,12 +97,7 @@ class PH_pageState extends State<PH_page> {
               ),
               Expanded(
                   child: Stack(children: [
-                PageView(
-                    controller: controller,
-                    onPageChanged: (value) {
-                      context.read<PageCubit>().emit(value);
-                    },
-                    children: pages),
+                PageView(controller: controller, children: pages),
                 Container(
                     alignment: Alignment.topCenter,
                     child: SmoothPageIndicator(
@@ -200,8 +189,6 @@ Widget buildNxtBtn(
             controller.nextPage(
                 duration: Duration(milliseconds: 400), curve: Curves.easeIn);
           } else {
-            BlocProvider.of<PageCubit>(context).emit(0);
-            BlocProvider.of<ScrollCubit>(context).emit(0);
             context.go("/TE");
           }
         },

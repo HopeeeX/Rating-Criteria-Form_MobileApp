@@ -5,8 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:project_1/blocs/filler/filler_bloc.dart';
 import 'package:project_1/blocs/form/form_bloc.dart';
-import 'package:project_1/cubits/page/page_cubit.dart';
-import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:project_1/screens/CSSDA_page.dart';
 import 'package:project_1/screens/CS_page.dart';
 import 'package:project_1/screens/DOMP_page.dart';
@@ -35,8 +33,6 @@ class MyApp extends StatelessWidget {
             providers: [
               BlocProvider(create: (BuildContext context) => ResultFormBloc()),
               BlocProvider(create: (BuildContext context) => FillerBloc()),
-              BlocProvider(create: (BuildContext context) => PageCubit()),
-              BlocProvider(create: (BuildContext context) => ScrollCubit())
             ],
             child: MaterialApp.router(
               debugShowCheckedModeBanner: false,

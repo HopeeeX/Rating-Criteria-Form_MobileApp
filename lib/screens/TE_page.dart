@@ -1,14 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, deprecated_member_use
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:project_1/classes/RadioCard.dart';
 import 'package:project_1/classes/Remarks.dart';
 import 'package:project_1/classes/SubPages.dart';
-import 'package:project_1/cubits/page/page_cubit.dart';
-import 'package:project_1/cubits/scroll/scroll_cubit.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class TE_Page extends StatefulWidget {
@@ -19,10 +16,7 @@ class TE_Page extends StatefulWidget {
 class _TE_PageState extends State<TE_Page> {
   @override
   Widget build(BuildContext context) {
-    PageController controller =
-        PageController(initialPage: context.read<PageCubit>().state);
-    ScrollController scrollController = ScrollController(
-        initialScrollOffset: context.read<ScrollCubit>().state);
+    PageController controller = PageController();
     final List<RadioCard> _cards1 = [
       buildCard(
           'Knives, sharpening stone, cleaver and other tools are cleaned and sanitized before the commencement of the day selling',
@@ -90,12 +84,7 @@ class _TE_PageState extends State<TE_Page> {
               ),
               Expanded(
                   child: Stack(children: [
-                PageView(
-                    onPageChanged: (value) {
-                      context.read<PageCubit>().emit(value);
-                    },
-                    controller: controller,
-                    children: pages),
+                PageView(controller: controller, children: pages),
                 Container(
                     alignment: Alignment.topCenter,
                     child: SmoothPageIndicator(
@@ -108,20 +97,16 @@ class _TE_PageState extends State<TE_Page> {
                           activeDotColor: Colors.grey),
                     )),
               ])),
-              Container(
-                child: Column(
-                  children: [
-                    Container(
-                      child: Text('Select Rate to Proceed',
-                          style: GoogleFonts.hahmlet(
-                              color: Colors.white, fontSize: 15)),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(top: 5, bottom: 10),
-                      child: buildNxtBtn(context, controller, pages),
-                    )
-                  ],
-                ),
+              Column(
+                children: [
+                  Text('Select Rate to Proceed',
+                      style: GoogleFonts.hahmlet(
+                          color: Colors.white, fontSize: 15)),
+                  Container(
+                    padding: EdgeInsets.only(top: 5, bottom: 10),
+                    child: buildNxtBtn(context, controller, pages),
+                  )
+                ],
               )
             ],
           )),
@@ -168,23 +153,19 @@ Remarks buildRemarks(int deck) => Remarks(deck: deck, value_key: "TE");
 
 Widget buildNxtBtn(
         BuildContext context, PageController controller, List pages) =>
-    Container(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            primary: Color(0xFFAA2121),
-            minimumSize: Size(355, 50),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10))),
-        onPressed: () {
-          if (controller.page != pages.length - 1) {
-            controller.nextPage(
-                duration: Duration(milliseconds: 400), curve: Curves.easeIn);
-          } else {
-            BlocProvider.of<PageCubit>(context).emit(0);
-            BlocProvider.of<ScrollCubit>(context).emit(0);
-            context.go("/DOMP");
-          }
-        },
-        child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
-      ),
+    ElevatedButton(
+      style: ElevatedButton.styleFrom(
+          primary: Color(0xFFAA2121),
+          minimumSize: Size(355, 50),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+      onPressed: () {
+        if (controller.page != pages.length - 1) {
+          controller.nextPage(
+              duration: Duration(milliseconds: 400), curve: Curves.easeIn);
+        } else {
+          context.go("/DOMP");
+        }
+      },
+      child: Text('Next', style: GoogleFonts.hahmlet(fontSize: 17)),
     );
